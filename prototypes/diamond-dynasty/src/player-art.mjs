@@ -1,6 +1,6 @@
 // Original character art for Diamond Dynasty '94.
-// Every shape is rasterized onto the native canvas pixel grid; no commercial
-// sprite, player likeness, or licensed uniform element is used.
+// The runtime prefers native alpha sprites and retains procedural art only as
+// a load-failure fallback; no commercial sprite, likeness, or uniform is used.
 
 export const PLAYER_PALETTE = Object.freeze({
   outline: "#07101f",
@@ -29,6 +29,14 @@ export const PLAYER_PALETTE = Object.freeze({
 });
 
 const P = PLAYER_PALETTE;
+
+export const BATTER_SPRITE_PATHS = Object.freeze(
+  Array.from({ length: 7 }, (_, frame) => `./art/sprites/batter-${frame}.png`),
+);
+
+export const PITCHER_SPRITE_PATHS = Object.freeze(
+  Array.from({ length: 7 }, (_, frame) => `./art/sprites/pitcher-${frame}.png`),
+);
 
 function pixel(ctx, color, x, y, width = 1, height = 1) {
   ctx.fillStyle = color;
@@ -309,7 +317,14 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-export function drawBatter(ctx, frame, { x = 204, y = 191 } = {}) {
+export function drawBatter(ctx, frame, { x = 204, y = 191, sprite = null } = {}) {
+  if (sprite?.complete && sprite.naturalWidth > 0) {
+    pixel(ctx, P.shadow, x - 28, y + 3, 56, 4);
+    pixel(ctx, P.outline, x - 23, y + 1, 46, 2);
+    ctx.drawImage(sprite, Math.round(x - 52), Math.round(y - 97));
+    return;
+  }
+
   const pose = BATTER_POSES[Math.max(0, Math.min(BATTER_POSES.length - 1, frame))];
   const hipCenter = [x + pose.hip, y - 29];
   const backHip = [hipCenter[0] - 5, hipCenter[1]];
@@ -463,7 +478,14 @@ export function pitcherFrameForProgress(progress) {
   return 6;
 }
 
-export function drawPitcher(ctx, frame, { x = 128, y = 123 } = {}) {
+export function drawPitcher(ctx, frame, { x = 128, y = 123, sprite = null } = {}) {
+  if (sprite?.complete && sprite.naturalWidth > 0) {
+    pixel(ctx, P.shadow, x - 17, y + 3, 34, 3);
+    pixel(ctx, P.outline, x - 13, y + 1, 26, 2);
+    ctx.drawImage(sprite, Math.round(x - 38), Math.round(y - 58));
+    return;
+  }
+
   const pose = PITCHER_POSES[Math.max(0, Math.min(PITCHER_POSES.length - 1, frame))];
   const bodyX = x + pose.body[0];
   const bodyY = y + pose.body[1];

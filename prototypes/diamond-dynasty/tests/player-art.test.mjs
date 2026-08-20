@@ -1,14 +1,33 @@
 // PROTOTYPE - NOT FOR PRODUCTION
 
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
+  BATTER_SPRITE_PATHS,
+  PITCHER_SPRITE_PATHS,
   batterFrameForElapsed,
   drawBatter,
   drawCatcher,
   drawPitcher,
   pitcherFrameForProgress,
 } from "../src/player-art.mjs";
+
+function pngDimensions(relativePath) {
+  const bytes = readFileSync(new URL(`../${relativePath.replace("./", "")}`, import.meta.url));
+  assert.equal(bytes.subarray(1, 4).toString(), "PNG");
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+    colorType: bytes[25],
+  };
+}
+
+function pngHash(relativePath) {
+  const bytes = readFileSync(new URL(`../${relativePath.replace("./", "")}`, import.meta.url));
+  return createHash("sha256").update(bytes).digest("hex");
+}
 
 function captureRaster(draw) {
   const rectangles = [];
@@ -62,4 +81,37 @@ test("every batter and pitcher pose has a distinct full-body raster", () => {
   ));
   assert.equal(batterFrames.size, 7);
   assert.equal(pitcherFrames.size, 7);
+});
+
+test("sprite manifests expose seven alpha PNG frames at native dimensions", () => {
+  assert.equal(BATTER_SPRITE_PATHS.length, 7);
+  assert.equal(PITCHER_SPRITE_PATHS.length, 7);
+  for (const path of BATTER_SPRITE_PATHS) {
+    assert.deepEqual(pngDimensions(path), { width: 104, height: 100, colorType: 6 });
+  }
+  for (const path of PITCHER_SPRITE_PATHS) {
+    assert.deepEqual(pngDimensions(path), { width: 76, height: 58, colorType: 6 });
+  }
+  assert.equal(new Set([
+    ...BATTER_SPRITE_PATHS.map(pngHash),
+    ...PITCHER_SPRITE_PATHS.map(pngHash),
+  ]).size, 14);
+});
+
+test("loaded sprites render on integer-aligned gameplay coordinates", () => {
+  const images = [];
+  const context = {
+    fillStyle: "",
+    fillRect() {},
+    drawImage(...values) { images.push(values); },
+  };
+  const batter = { complete: true, naturalWidth: 104 };
+  const pitcher = { complete: true, naturalWidth: 76 };
+  drawBatter(context, 0, { sprite: batter });
+  drawPitcher(context, 0, { sprite: pitcher });
+  assert.deepEqual(images, [
+    [batter, 152, 94],
+    [pitcher, 90, 65],
+  ]);
+  assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });

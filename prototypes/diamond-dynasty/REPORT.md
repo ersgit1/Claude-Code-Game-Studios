@@ -14,15 +14,15 @@ player likenesses from commercial baseball games.
 ### Approach
 
 Built a dependency-free Canvas 2D slice at a logical `256×224` resolution. The
-slice combines a 32-color original stadium background with native-grid,
-scanline-rasterized batter, pitcher, and catcher art plus the ball, HUD, hit
-effects, and synthesized audio. Gameplay uses a
+slice combines a 32-color original stadium background with a fourteen-frame
+original batter/pitcher sprite set, native-grid catcher art, plus the ball, HUD,
+hit effects, and synthesized audio. Gameplay uses a
 timing-plus-location contact model, three differentiated pitches, count and out
 rules, base advancement, scoring, innings, keyboard controls, and touch controls.
 
 Shortcuts: one fictional team, one stadium, no fielding camera, no roster or
-substitution model, synthesized rather than sampled audio, and original
-procedural sprite drawings rather than a production sprite atlas.
+substitution model, synthesized rather than sampled audio, and a compact
+prototype sprite set rather than a production atlas with handedness variants.
 
 ### Result
 
@@ -34,11 +34,11 @@ legible over the field at native resolution. Desktop and `390×844` mobile QA
 both preserve the 8:7 game screen, usable controls, and scoreboard without
 horizontal overflow.
 
-Human review rejected the first rebuilt character set because its limbs still
-used constant-width strokes despite the torso detail. The second pass replaces
-those strokes with tapered upper and lower anatomy, shaped joints, skin and
-cloth material planes, cuffs, trouser creases, kneecaps, calves, socks, and
-cleats. `CHARACTER_ART_COMPARISON.md` now provides the side-by-side and full
+Human review rejected both procedural character passes because the limbs still
+read as assembled geometry despite the torso detail. The replacement uses
+fourteen original alpha sprites with coherent anatomy, shaped joints, skin and
+cloth material planes, folds, kneecaps, calves, socks, and cleats.
+`CHARACTER_ART_COMPARISON.md` provides the side-by-side and full
 fourteen-pose sheet. The earlier self-assigned `9.1/10` art score is withdrawn;
 acceptance rests with human visual review. The prototype should not be
 represented as a 9/10 complete game against a finished SNES title: fielding,
@@ -49,9 +49,9 @@ defence, team depth, broadcast transitions, and a complete game loop remain.
 - Native gameplay canvas: `256×224`
 - Final background asset: indexed PNG, 32-color target, 20 KB
 - Pixel-Bench 0.1.0 validation: `all images look like native 1x pixel art`
-- Automated gameplay, animation, and raster integrity: 15/15 tests passed
+- Automated gameplay, animation, and asset integrity: 17/17 tests passed
 - Desktop rendered canvas observed: `752×656`, no horizontal overflow
-- Mobile QA viewport: `390×844`, no console errors or warnings
+- Live desktop gameplay and swing workflow: no console errors or warnings
 - Pitch repertoire: 3 pitches, 79–95 MPH, distinct duration and break
 - Batter animation: 7 frame states; pitcher animation: 7 frame states
 - Character-detail evidence: reference comparison plus fourteen-pose sheet;

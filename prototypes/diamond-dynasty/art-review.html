@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Dynasty '94 — Character Art Review</title>
+    <style>
+      * { box-sizing: border-box; }
+      html { background: #050a18; color: #fff4cf; font-family: "Courier New", monospace; }
+      body { margin: 0; padding: 0; }
+      h1, h2, p, figure { margin: 0; }
+      .comparison {
+        width: 1536px;
+        height: 768px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+        background: #07101f;
+      }
+      .reference {
+        width: 768px;
+        height: 768px;
+        object-fit: cover;
+        image-rendering: pixelated;
+      }
+      .original-panel {
+        display: grid;
+        grid-template-rows: 68px 1fr;
+        border-left: 4px solid #ffc34d;
+        overflow: hidden;
+      }
+      .panel-title {
+        display: grid;
+        place-items: center;
+        color: #ffc34d;
+        background: #07101f;
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: .08em;
+      }
+      .gameplay-frame {
+        display: grid;
+        place-items: center;
+        background: #07101f;
+      }
+      .gameplay-frame img {
+        width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+      }
+      .animation {
+        width: 1536px;
+        height: 760px;
+        padding: 24px 22px;
+        background: #07101f;
+      }
+      .animation h1 {
+        margin-bottom: 14px;
+        color: #ffc34d;
+        font-size: 30px;
+        letter-spacing: .06em;
+      }
+      .row-label {
+        margin: 12px 0 8px;
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .sprite-row {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+      .sprite-row figure {
+        height: 282px;
+        display: grid;
+        grid-template-rows: 1fr 32px;
+        place-items: center;
+        border: 2px solid #a58b4a;
+        background: #20464c;
+        overflow: hidden;
+      }
+      .sprite-row img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+      .batter-row img { width: 208px; height: 200px; }
+      .pitcher-row img { width: 228px; height: 174px; }
+      figcaption {
+        align-self: stretch;
+        width: 100%;
+        padding-top: 7px;
+        color: #ffc34d;
+        background: #102e4a;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="comparison" class="comparison" aria-label="SNES reference and original sprite rebuild comparison">
+      <img class="reference" src="./art/references/ken-griffey-jr-snes-reference.png" alt="1994 SNES baseball screenshot used only as a detail-density reference">
+      <div class="original-panel">
+        <h1 class="panel-title">DIAMOND DYNASTY '94 — ORIGINAL SPRITE REBUILD</h1>
+        <div class="gameplay-frame">
+          <img src="./screenshots/gameplay-v2.png" alt="Live gameplay with original sprite-based batter and pitcher">
+        </div>
+      </div>
+    </section>
+    <section id="animation" class="animation" aria-label="Fourteen original animation poses">
+      <h1>ORIGINAL PLAYER SPRITES — NATIVE PIXEL GRID</h1>
+      <h2 class="row-label">Batter: ready through recovery</h2>
+      <div class="sprite-row batter-row">
+        <figure><img src="./art/sprites/batter-0.png" alt="Original batter pose 1"><figcaption>READY</figcaption></figure>
+        <figure><img src="./art/sprites/batter-1.png" alt="Original batter pose 2"><figcaption>LOAD</figcaption></figure>
+        <figure><img src="./art/sprites/batter-2.png" alt="Original batter pose 3"><figcaption>STRIDE</figcaption></figure>
+        <figure><img src="./art/sprites/batter-3.png" alt="Original batter pose 4"><figcaption>SWING</figcaption></figure>
+        <figure><img src="./art/sprites/batter-4.png" alt="Original batter pose 5"><figcaption>CONTACT</figcaption></figure>
+        <figure><img src="./art/sprites/batter-5.png" alt="Original batter pose 6"><figcaption>FOLLOW</figcaption></figure>
+        <figure><img src="./art/sprites/batter-6.png" alt="Original batter pose 7"><figcaption>RECOVER</figcaption></figure>
+      </div>
+      <h2 class="row-label">Pitcher: set through recovery</h2>
+      <div class="sprite-row pitcher-row">
+        <figure><img src="./art/sprites/pitcher-0.png" alt="Original pitcher pose 1"><figcaption>SET</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-1.png" alt="Original pitcher pose 2"><figcaption>LIFT</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-2.png" alt="Original pitcher pose 3"><figcaption>BALANCE</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-3.png" alt="Original pitcher pose 4"><figcaption>STRIDE</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-4.png" alt="Original pitcher pose 5"><figcaption>RELEASE</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-5.png" alt="Original pitcher pose 6"><figcaption>FOLLOW</figcaption></figure>
+        <figure><img src="./art/sprites/pitcher-6.png" alt="Original pitcher pose 7"><figcaption>RECOVER</figcaption></figure>
+      </div>
+    </section>
+  </body>
+</html>

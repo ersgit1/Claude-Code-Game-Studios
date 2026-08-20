@@ -15,12 +15,14 @@ import {
 } from "./game-model.mjs";
 import { BallparkAudio } from "./audio.mjs";
 import {
+  BATTER_SPRITE_PATHS,
+  PITCHER_SPRITE_PATHS,
   batterFrameForElapsed,
   drawBatter as drawPlayerBatter,
   drawCatcher as drawPlayerCatcher,
   drawPitcher as drawPlayerPitcher,
   pitcherFrameForProgress,
-} from "./player-art.mjs?v=articulated-limbs-v3";
+} from "./player-art.mjs?v=sprite-art-v4";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -28,6 +30,15 @@ ctx.imageSmoothingEnabled = false;
 
 const background = new Image();
 background.src = "./assets/stadium.png";
+const loadSprite = (src) => {
+  const image = new Image();
+  image.src = src;
+  return image;
+};
+const playerSprites = {
+  batter: BATTER_SPRITE_PATHS.map(loadSprite),
+  pitcher: PITCHER_SPRITE_PATHS.map(loadSprite),
+};
 const audio = new BallparkAudio();
 let state = createGameState();
 let started = false;
@@ -104,7 +115,8 @@ function drawAim() {
 
 function drawPitcher(now) {
   const progress = state.phase === "pitching" ? pitchProgress(state.pitch, now) : 0;
-  drawPlayerPitcher(ctx, pitcherFrameForProgress(progress));
+  const frame = pitcherFrameForProgress(progress);
+  drawPlayerPitcher(ctx, frame, { sprite: playerSprites.pitcher[frame] });
 }
 
 function drawCatcher() {
@@ -113,7 +125,8 @@ function drawCatcher() {
 
 function drawBatter(now) {
   const elapsed = now - swingStartedAt;
-  drawPlayerBatter(ctx, batterFrameForElapsed(elapsed));
+  const frame = batterFrameForElapsed(elapsed);
+  drawPlayerBatter(ctx, frame, { sprite: playerSprites.batter[frame] });
 }
 
 function drawBall(now) {
