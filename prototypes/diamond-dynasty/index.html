@@ -1,0 +1,57 @@
+<!-- PROTOTYPE - NOT FOR PRODUCTION
+Question: Can an original browser-native 16-bit baseball at-bat feel readable, skillful, and visually competitive with strong SNES-era sports games?
+Date: 2026-08-20 -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#071328" />
+    <title>Diamond Dynasty '94 — Prototype</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="cabinet" aria-labelledby="game-title">
+      <header class="marquee">
+        <div>
+          <p class="eyebrow">WALTER OTTER'S 16-BIT LAB</p>
+          <h1 id="game-title">DIAMOND DYNASTY <span>'94</span></h1>
+        </div>
+        <p class="prototype-tag">PLAYABLE PROTOTYPE</p>
+      </header>
+
+      <section class="screen-shell" aria-label="Baseball game">
+        <canvas id="game" width="256" height="224" aria-label="Playable baseball at-bat"></canvas>
+        <div id="start-card" class="start-card">
+          <p class="kicker">HARBOR CITY NIGHT GAME</p>
+          <h2>OWN THE AT-BAT</h2>
+          <p>Track the pitch, move the contact cursor, and time the swing.</p>
+          <button id="start-button" type="button">PRESS START</button>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Game controls">
+        <div class="dpad" aria-label="Aim contact cursor">
+          <button type="button" data-control="up" aria-label="Aim up">▲</button>
+          <button type="button" data-control="left" aria-label="Aim left">◀</button>
+          <button type="button" data-control="down" aria-label="Aim down">▼</button>
+          <button type="button" data-control="right" aria-label="Aim right">▶</button>
+        </div>
+        <div class="control-copy">
+          <p><kbd>ARROWS</kbd> AIM</p>
+          <p><kbd>SPACE</kbd> / <kbd>A</kbd> SWING</p>
+          <p><kbd>ENTER</kbd> NEXT PITCH</p>
+        </div>
+        <div class="action-buttons">
+          <button id="pitch-button" type="button" class="button-small">PITCH</button>
+          <button id="swing-button" type="button" class="button-large">SWING</button>
+        </div>
+      </section>
+
+      <footer>
+        Original code, characters, venue, sound synthesis, and pixel treatment. No MLB, Nintendo, or licensed game assets.
+      </footer>
+    </main>
+    <script type="module" src="./src/game.mjs"></script>
+  </body>
+</html>
