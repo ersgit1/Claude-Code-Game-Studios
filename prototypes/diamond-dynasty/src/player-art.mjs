@@ -325,7 +325,11 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-export function drawBatter(ctx, frame, { x = 195, y = 214, sprite = null } = {}) {
+// This is a right-handed, screen-right-facing hitter. Keep him in the left
+// batter's box so the pitcher, plate, pitch path, stride, and barrel are all in
+// front of him. Putting this art on the right side makes the entire swing read
+// backwards even though the individual poses remain in chronological order.
+export function drawBatter(ctx, frame, { x = 61, y = 214, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
     pixel(ctx, P.shadow, x - 31, y + 2, 62, 4);
     pixel(ctx, P.outline, x - 25, y, 50, 2);
@@ -393,7 +397,7 @@ export function drawBatter(ctx, frame, { x = 195, y = 214, sprite = null } = {})
   }, P.navy);
   drawBattingHands(ctx, backHand, frontHand);
 
-  drawHead(ctx, x + pose.lean + 1, y - 64, 1, -1);
+  drawHead(ctx, x + pose.lean + 1, y - 64, 1, 1);
   // Ear flap and jaw guard make the batting helmet read separately from a cap.
   pixel(ctx, P.navyDeep, x + pose.lean + 5, y - 64, 3, 8);
   pixel(ctx, P.navyLight, x + pose.lean + 5, y - 63, 1, 4);

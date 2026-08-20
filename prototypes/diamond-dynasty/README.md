@@ -47,8 +47,9 @@ node --test tests/*.test.mjs
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
 - Nine-state original side/back three-quarter batter animation in a tight
-  home-plate camera, staged beside the right side of the plate and facing the
-  pitcher, plus a seven-state pitcher delivery
+  home-plate camera, with the right-facing hitter staged in the left batter's
+  box so his stride and barrel travel through the incoming pitch, plus a
+  seven-state pitcher delivery
 - Dedicated batter animation review with synchronized field/close views and a
   reproducible looping GIF
 - Original synthesized arcade sound cues

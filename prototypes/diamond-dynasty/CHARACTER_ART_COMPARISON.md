@@ -58,8 +58,8 @@ animation readability, not a trace or one-to-one replica.
   controlled reset, with the high finish held before reset
 - Pitcher: set, leg lift, balance, stride, release, follow-through, recover
 - Gameplay staging: a large side/back three-quarter batter stands beside the
-  right batter's box, faces the smaller downfield pitcher, and completes the
-  swing; the catcher is omitted
+  left batter's box, faces the smaller downfield pitcher, and carries the bat
+  through the plate into a held finish; the catcher is omitted
 
 ## Concept-art pass
 

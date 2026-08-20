@@ -105,7 +105,7 @@ test("sprite manifests expose nine batter and seven pitcher alpha PNG frames", (
   ]).size, 16);
 });
 
-test("camera-facing batter renders large beside the right side of the plate on integer coordinates", () => {
+test("right-facing batter renders in the left box with the pitch corridor in front of him", () => {
   const images = [];
   const context = {
     fillStyle: "",
@@ -117,10 +117,12 @@ test("camera-facing batter renders large beside the right side of the plate on i
   drawBatter(context, 0, { sprite: batter });
   drawPitcher(context, 0, { sprite: pitcher });
   assert.deepEqual(images, [
-    [batter, 135, 106],
+    [batter, 1, 106],
     [pitcher, 90, 65],
   ]);
-  assert.ok(images[0][1] > images[1][1]);
+  const batterRightEdge = images[0][1] + batter.naturalWidth;
+  const pitcherCenter = images[1][1] + pitcher.naturalWidth / 2;
+  assert.ok(batterRightEdge < pitcherCenter);
   assert.ok(images[0][1] + batter.naturalWidth <= 256);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });
