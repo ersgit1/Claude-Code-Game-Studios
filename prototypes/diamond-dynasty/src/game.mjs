@@ -19,10 +19,9 @@ import {
   PITCHER_SPRITE_PATHS,
   batterFrameForElapsed,
   drawBatter as drawPlayerBatter,
-  drawCatcher as drawPlayerCatcher,
   drawPitcher as drawPlayerPitcher,
   pitcherFrameForProgress,
-} from "./player-art.mjs?v=sprite-art-v4";
+} from "./player-art.mjs?v=sprite-art-v5";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -119,10 +118,6 @@ function drawPitcher(now) {
   drawPlayerPitcher(ctx, frame, { sprite: playerSprites.pitcher[frame] });
 }
 
-function drawCatcher() {
-  drawPlayerCatcher(ctx);
-}
-
 function drawBatter(now) {
   const elapsed = now - swingStartedAt;
   const frame = batterFrameForElapsed(elapsed);
@@ -170,7 +165,6 @@ function draw(now) {
   drawHud();
   drawStrikeZone();
   drawPitcher(now);
-  drawCatcher();
   drawBatter(now);
   drawBall(now);
   drawFlight(now);

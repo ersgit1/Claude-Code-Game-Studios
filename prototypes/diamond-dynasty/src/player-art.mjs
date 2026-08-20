@@ -317,7 +317,7 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-export function drawBatter(ctx, frame, { x = 204, y = 191, sprite = null } = {}) {
+export function drawBatter(ctx, frame, { x = 72, y = 191, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
     pixel(ctx, P.shadow, x - 28, y + 3, 56, 4);
     pixel(ctx, P.outline, x - 23, y + 1, 46, 2);
@@ -390,72 +390,6 @@ export function drawBatter(ctx, frame, { x = 204, y = 191, sprite = null } = {})
   pixel(ctx, P.navyDeep, x + pose.lean + 5, y - 64, 3, 8);
   pixel(ctx, P.navyLight, x + pose.lean + 5, y - 63, 1, 4);
   pixel(ctx, P.skinLight, x + pose.lean - 3, y - 62, 1, 3);
-}
-
-export function drawCatcher(ctx, { x = 151, y = 184 } = {}) {
-  const hip = [x, y - 13];
-  const leftKnee = [x - 11, y - 7];
-  const rightKnee = [x + 11, y - 7];
-  const leftAnkle = [x - 15, y + 1];
-  const rightAnkle = [x + 15, y + 1];
-
-  pixel(ctx, P.shadow, x - 21, y + 4, 42, 4);
-  pixel(ctx, P.outline, x - 18, y + 2, 36, 2);
-  shadedLimb(ctx, [hip[0] - 3, hip[1]], leftKnee, leftAnkle, 8, {
-    base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
-  });
-  shadedLimb(ctx, [hip[0] + 3, hip[1]], rightKnee, rightAnkle, 8, {
-    base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
-  });
-  pixel(ctx, P.coral, leftKnee[0] - 4, leftKnee[1] - 1, 8, 2);
-  pixel(ctx, P.coral, rightKnee[0] - 3, rightKnee[1] - 1, 8, 2);
-  pixel(ctx, P.creamLight, leftKnee[0] - 2, leftKnee[1] - 4, 4, 2);
-  pixel(ctx, P.creamLight, rightKnee[0] - 2, rightKnee[1] - 4, 4, 2);
-  drawCleat(ctx, leftAnkle, -1, 0.75);
-  drawCleat(ctx, rightAnkle, 1, 0.75);
-
-  polygon(ctx, P.outline, [
-    [x - 11, y - 30], [x + 10, y - 30], [x + 9, y - 12], [x - 9, y - 12],
-  ]);
-  polygon(ctx, P.navy, [
-    [x - 9, y - 28], [x + 8, y - 28], [x + 7, y - 14], [x - 7, y - 14],
-  ]);
-  polygon(ctx, P.navyLight, [
-    [x - 7, y - 27], [x - 2, y - 27], [x - 2, y - 15], [x - 6, y - 15],
-  ]);
-  polygon(ctx, P.coral, [
-    [x - 5, y - 27], [x + 5, y - 27], [x + 4, y - 17], [x - 4, y - 17],
-  ]);
-  pixel(ctx, P.creamLight, x - 3, y - 26, 6, 7);
-  pixel(ctx, P.coralLight, x - 2, y - 25, 4, 2);
-  pixel(ctx, P.navyDeep, x - 4, y - 16, 8, 3);
-
-  const gloveHand = [x - 15, y - 22];
-  shadedLimb(ctx, [x - 8, y - 27], [x - 13, y - 27], gloveHand, 6, {
-    base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
-  });
-  drawGlove(ctx, gloveHand, 0.9);
-  shadedLimb(ctx, [x + 8, y - 27], [x + 12, y - 23], [x + 8, y - 18], 6, {
-    base: P.skin, shadow: P.skinShadow, highlight: P.skinLight,
-  });
-
-  polygon(ctx, P.outline, [
-    [x - 7, y - 41], [x + 7, y - 41], [x + 9, y - 36],
-    [x + 7, y - 28], [x - 7, y - 28], [x - 9, y - 36],
-  ]);
-  pixel(ctx, P.skinShadow, x - 5, y - 37, 11, 7);
-  pixel(ctx, P.skin, x - 3, y - 36, 7, 5);
-  pixel(ctx, P.outline, x + 2, y - 35, 2, 1);
-  pixel(ctx, P.navy, x - 8, y - 43, 16, 6);
-  pixel(ctx, P.navyLight, x - 5, y - 42, 8, 1);
-  pixel(ctx, P.coral, x - 3, y - 41, 5, 2);
-  // Mask bars stay one native pixel thick, with open skin pixels between them.
-  pixel(ctx, P.outline, x - 7, y - 38, 15, 1);
-  pixel(ctx, P.outline, x - 7, y - 34, 15, 1);
-  pixel(ctx, P.outline, x - 7, y - 38, 1, 8);
-  pixel(ctx, P.outline, x + 7, y - 38, 1, 8);
-  pixel(ctx, P.creamDeep, x - 3, y - 38, 1, 8);
-  pixel(ctx, P.creamDeep, x + 3, y - 38, 1, 8);
 }
 
 const PITCHER_POSES = Object.freeze([

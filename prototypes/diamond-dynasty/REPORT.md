@@ -15,8 +15,8 @@ player likenesses from commercial baseball games.
 
 Built a dependency-free Canvas 2D slice at a logical `256×224` resolution. The
 slice combines a 32-color original stadium background with a fourteen-frame
-original batter/pitcher sprite set, native-grid catcher art, plus the ball, HUD,
-hit effects, and synthesized audio. Gameplay uses a
+original batter/pitcher sprite set, plus the ball, HUD, hit effects, and
+synthesized audio. Gameplay uses a
 timing-plus-location contact model, three differentiated pitches, count and out
 rules, base advancement, scoring, innings, keyboard controls, and touch controls.
 
@@ -70,7 +70,7 @@ directly into production.
 
 ### If Proceeding
 
-- Re-author batter, pitcher, catcher, umpire, and fielders as native sprite
+- Re-author batter, pitcher, umpire, and fielders as native sprite
   sheets with 6–10 frames per major action and handedness variants.
 - Add a fielding camera, defensive AI, throwing, runner decisions, errors, and
   tag/force-out rules.

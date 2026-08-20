@@ -9,7 +9,6 @@ import {
   PITCHER_SPRITE_PATHS,
   batterFrameForElapsed,
   drawBatter,
-  drawCatcher,
   drawPitcher,
   pitcherFrameForProgress,
 } from "../src/player-art.mjs";
@@ -58,7 +57,6 @@ test("detailed character limbs stay on the native integer pixel grid", () => {
   const rasters = [
     ...Array.from({ length: 7 }, (_, frame) => captureRaster((ctx) => drawBatter(ctx, frame))),
     ...Array.from({ length: 7 }, (_, frame) => captureRaster((ctx) => drawPitcher(ctx, frame))),
-    captureRaster((ctx) => drawCatcher(ctx)),
   ];
   for (const raster of rasters) {
     assert.ok(raster.length > 300);
@@ -98,7 +96,7 @@ test("sprite manifests expose seven alpha PNG frames at native dimensions", () =
   ]).size, 14);
 });
 
-test("loaded sprites render on integer-aligned gameplay coordinates", () => {
+test("right-facing batter renders in the left batter box on integer coordinates", () => {
   const images = [];
   const context = {
     fillStyle: "",
@@ -110,8 +108,9 @@ test("loaded sprites render on integer-aligned gameplay coordinates", () => {
   drawBatter(context, 0, { sprite: batter });
   drawPitcher(context, 0, { sprite: pitcher });
   assert.deepEqual(images, [
-    [batter, 152, 94],
+    [batter, 20, 94],
     [pitcher, 90, 65],
   ]);
+  assert.ok(images[0][1] >= 0 && images[0][1] + batter.naturalWidth <= 128);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });

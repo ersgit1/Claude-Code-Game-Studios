@@ -51,6 +51,6 @@ release packaging.
 
 The stadium source was generated specifically for this prototype with the
 built-in image-generation tool, then resized and palette-reduced locally. The
-batter, pitcher, catcher, ball, HUD, effects, and every animation frame are
-original procedural pixel drawings in `src/game.mjs`. No ROM, screenshot,
-commercial sprite, logo, player likeness, audio, or source code was used.
+batter and pitcher sprite art, ball, HUD, effects, and every animation frame
+are original. No ROM, screenshot, commercial sprite, logo, player likeness,
+audio, or source code was used.

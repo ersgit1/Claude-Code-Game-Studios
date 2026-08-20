@@ -42,8 +42,8 @@ node --test tests/*.test.mjs
 - Balls, strikes, walks, strikeouts, outs, innings, hits, runners, and scoring
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
-- Seven-state original pitcher and batter pixel animation plus a detailed
-  catcher set pose
+- Seven-state original pitcher and batter pixel animation, staged with the
+  right-facing batter in the left-hand batter's box
 - Original synthesized arcade sound cues
 - Original fictional stadium art reduced to a 32-color, native 256×224 asset
 

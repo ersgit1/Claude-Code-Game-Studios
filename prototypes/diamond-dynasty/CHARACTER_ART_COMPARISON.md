@@ -50,8 +50,8 @@ animation readability, not a trace or one-to-one replica.
 
 - Batter: ready, load, stride, swing, contact, follow-through, recover
 - Pitcher: set, leg lift, balance, stride, release, follow-through, recover
-- Catcher: original crouch with articulated legs, mitt, throwing arm, helmet,
-  mask bars, chest protector, knee guards, and cleats
+- Gameplay staging: the right-facing batter occupies the left-hand batter's
+  box and faces the pitcher; the catcher is intentionally omitted
 
 ## Concept-art pass
 
