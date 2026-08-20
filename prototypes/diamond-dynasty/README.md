@@ -46,8 +46,9 @@ node --test tests/*.test.mjs
 - Balls, strikes, walks, strikeouts, outs, innings, hits, runners, and scoring
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
-- Nine-state original rear-view batter animation, staged behind the left side
-  of the plate and facing the pitcher, plus a seven-state pitcher delivery
+- Nine-state original side/back three-quarter batter animation in a tight
+  home-plate camera, staged beside the right side of the plate and facing the
+  pitcher, plus a seven-state pitcher delivery
 - Dedicated batter animation review with synchronized field/close views and a
   reproducible looping GIF
 - Original synthesized arcade sound cues

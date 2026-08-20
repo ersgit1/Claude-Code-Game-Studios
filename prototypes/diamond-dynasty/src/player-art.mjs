@@ -293,13 +293,13 @@ const BATTER_POSES = Object.freeze([
 
 export function batterFrameForElapsed(elapsed) {
   if (elapsed < 0) return 0;
-  if (elapsed < 65) return 1;
-  if (elapsed < 125) return 2;
-  if (elapsed < 180) return 3;
-  if (elapsed < 235) return 4;
-  if (elapsed < 290) return 5;
-  if (elapsed < 355) return 6;
-  if (elapsed < 445) return 7;
+  if (elapsed < 70) return 1;
+  if (elapsed < 135) return 2;
+  if (elapsed < 195) return 3;
+  if (elapsed < 255) return 4;
+  if (elapsed < 315) return 5;
+  if (elapsed < 385) return 6;
+  if (elapsed < 900) return 7;
   return 8;
 }
 
@@ -325,11 +325,11 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-export function drawBatter(ctx, frame, { x = 82, y = 191, sprite = null } = {}) {
+export function drawBatter(ctx, frame, { x = 195, y = 214, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
-    pixel(ctx, P.shadow, x - 28, y + 3, 56, 4);
-    pixel(ctx, P.outline, x - 23, y + 1, 46, 2);
-    ctx.drawImage(sprite, Math.round(x - 52), Math.round(y - 97));
+    pixel(ctx, P.shadow, x - 31, y + 2, 62, 4);
+    pixel(ctx, P.outline, x - 25, y, 50, 2);
+    ctx.drawImage(sprite, Math.round(x - 60), Math.round(y - 108));
     return;
   }
 

@@ -74,10 +74,10 @@
       }
       .field-batter {
         position: absolute;
-        left: 11.71875%;
-        top: 41.9643%;
-        width: 40.625%;
-        height: 44.6429%;
+        left: 52.734375%;
+        top: 47.321429%;
+        width: 46.875%;
+        height: 50%;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
       }
@@ -180,16 +180,16 @@
   </head>
   <body>
     <main class="review">
-      <p class="eyebrow">ORIGINAL NINE-FRAME REAR-VIEW BATTER</p>
+      <p class="eyebrow">ORIGINAL NINE-FRAME PITCHER/BATTER CAMERA</p>
       <h1>BATTER ANIMATION REVIEW</h1>
-      <p class="lede">The field view uses a rear three-quarter camera behind the batter, looking toward the pitcher. The close view exposes the same native sprite frames at readable scale. Use game speed to judge the complete swing arc, slow review to inspect transitions, or choose any pose directly.</p>
+      <p class="lede">The field view uses a tight home-plate camera with a large side/back three-quarter batter beside the plate and a smaller pitcher downfield. The close view exposes the same native sprite frames at readable scale. Use game speed to judge the compact swing and held high finish, slow review to inspect transitions, or choose any pose directly.</p>
 
       <section class="views" aria-label="Synchronized batter animation views">
         <figure>
           <div class="field-stage">
-            <img class="field-batter" data-live-batter src="./art/sprites/batter-0.png" alt="Animated rear-view batter facing the pitcher">
+            <img class="field-batter" data-live-batter src="./art/sprites/batter-0.png" alt="Animated side-back batter facing the pitcher">
           </div>
-          <figcaption>BEHIND THE BATTER — FACING THE PITCHER</figcaption>
+          <figcaption>TIGHT HOME-PLATE CAMERA — FACING THE PITCHER</figcaption>
         </figure>
         <figure>
           <div class="close-stage">
@@ -216,11 +216,11 @@
         <button class="pose-button" type="button" data-frame="5" aria-pressed="false"><img src="./art/sprites/batter-5.png" alt="Contact pose"><span>6 CONTACT</span></button>
         <button class="pose-button" type="button" data-frame="6" aria-pressed="false"><img src="./art/sprites/batter-6.png" alt="Post-contact extension pose"><span>7 EXTEND</span></button>
         <button class="pose-button" type="button" data-frame="7" aria-pressed="false"><img src="./art/sprites/batter-7.png" alt="High follow-through pose"><span>8 FINISH</span></button>
-        <button class="pose-button" type="button" data-frame="8" aria-pressed="false"><img src="./art/sprites/batter-8.png" alt="Balanced finish hold pose"><span>9 HOLD</span></button>
+        <button class="pose-button" type="button" data-frame="8" aria-pressed="false"><img src="./art/sprites/batter-8.png" alt="Controlled reset pose"><span>9 RESET</span></button>
       </section>
 
-      <p class="timing-note">Game speed uses the live swing thresholds: 65 ms load, 60 ms stride, 55 ms plant, 55 ms swing, 55 ms contact, 65 ms extension, and 90 ms high finish, followed by a readable balanced hold.</p>
+      <p class="timing-note">Game speed uses the live swing thresholds: 70 ms load, 65 ms stride, 60 ms plant, 60 ms swing, 60 ms contact, 70 ms extension, then a readable high-finish hold before reset.</p>
     </main>
-    <script type="module" src="./src/animation-review.mjs?v=2"></script>
+    <script type="module" src="./src/animation-review.mjs?v=3"></script>
   </body>
 </html>

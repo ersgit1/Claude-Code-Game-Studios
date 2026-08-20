@@ -51,9 +51,9 @@ test("batter animation exposes contact, extension, and a held follow-through", (
   assert.equal(batterFrameForElapsed(-1), 0);
   assert.equal(batterFrameForElapsed(80), 2);
   assert.equal(batterFrameForElapsed(150), 3);
-  assert.equal(batterFrameForElapsed(250), 5);
+  assert.equal(batterFrameForElapsed(250), 4);
   assert.equal(batterFrameForElapsed(320), 6);
-  assert.equal(batterFrameForElapsed(400), 7);
+  assert.equal(batterFrameForElapsed(600), 7);
   assert.equal(batterFrameForElapsed(1000), 8);
 });
 
@@ -94,7 +94,7 @@ test("sprite manifests expose nine batter and seven pitcher alpha PNG frames", (
   assert.equal(BATTER_SPRITE_PATHS.length, 9);
   assert.equal(PITCHER_SPRITE_PATHS.length, 7);
   for (const path of BATTER_SPRITE_PATHS) {
-    assert.deepEqual(pngDimensions(path), { width: 104, height: 100, colorType: 6 });
+    assert.deepEqual(pngDimensions(path), { width: 120, height: 112, colorType: 6 });
   }
   for (const path of PITCHER_SPRITE_PATHS) {
     assert.deepEqual(pngDimensions(path), { width: 76, height: 58, colorType: 6 });
@@ -105,22 +105,22 @@ test("sprite manifests expose nine batter and seven pitcher alpha PNG frames", (
   ]).size, 16);
 });
 
-test("rear-view batter renders behind the left side of the plate on integer coordinates", () => {
+test("camera-facing batter renders large beside the right side of the plate on integer coordinates", () => {
   const images = [];
   const context = {
     fillStyle: "",
     fillRect() {},
     drawImage(...values) { images.push(values); },
   };
-  const batter = { complete: true, naturalWidth: 104 };
+  const batter = { complete: true, naturalWidth: 120 };
   const pitcher = { complete: true, naturalWidth: 76 };
   drawBatter(context, 0, { sprite: batter });
   drawPitcher(context, 0, { sprite: pitcher });
   assert.deepEqual(images, [
-    [batter, 30, 94],
+    [batter, 135, 106],
     [pitcher, 90, 65],
   ]);
-  assert.ok(images[0][1] >= 0 && images[0][1] < images[1][1]);
+  assert.ok(images[0][1] > images[1][1]);
   assert.ok(images[0][1] + batter.naturalWidth <= 256);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });

@@ -6,13 +6,14 @@ OUTPUT="$ROOT_DIR/screenshots/batter-animation.gif"
 TEMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-durations=(0.50 0.065 0.060 0.055 0.055 0.055 0.065 0.090 0.45)
+durations=(0.50 0.070 0.065 0.060 0.060 0.060 0.070 0.515 0.45)
 
 for frame in 0 1 2 3 4 5 6 7 8; do
   ffmpeg -y -loglevel error \
     -i "$ROOT_DIR/assets/stadium.png" \
+    -i "$ROOT_DIR/art/sprites/pitcher-0.png" \
     -i "$ROOT_DIR/art/sprites/batter-$frame.png" \
-    -filter_complex "[0:v][1:v]overlay=30:94:format=auto,scale=512:448:flags=neighbor" \
+    -filter_complex "[0:v][1:v]overlay=90:65:format=auto[field];[field][2:v]overlay=135:106:format=auto,scale=512:448:flags=neighbor" \
     -frames:v 1 "$TEMP_DIR/frame-$frame.png"
   printf "file '%s'\nduration %s\n" "$TEMP_DIR/frame-$frame.png" "${durations[$frame]}" >> "$TEMP_DIR/frames.txt"
 done
