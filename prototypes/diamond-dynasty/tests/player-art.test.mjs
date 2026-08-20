@@ -28,6 +28,10 @@ function pngHash(relativePath) {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+function animationGif() {
+  return readFileSync(new URL("../screenshots/batter-animation.gif", import.meta.url));
+}
+
 function captureRaster(draw) {
   const rectangles = [];
   const context = {
@@ -113,4 +117,21 @@ test("right-facing batter renders in the left batter box on integer coordinates"
   ]);
   assert.ok(images[0][1] >= 0 && images[0][1] + batter.naturalWidth <= 128);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
+});
+
+test("batter review artifact contains a full seven-pose cycle and recovery hold", () => {
+  const gif = animationGif();
+  assert.equal(gif.subarray(0, 6).toString(), "GIF89a");
+  assert.equal(gif.readUInt16LE(6), 512);
+  assert.equal(gif.readUInt16LE(8), 448);
+
+  let frameCount = 0;
+  for (let index = 0; index < gif.length - 2; index += 1) {
+    if (gif[index] === 0x21 && gif[index + 1] === 0xf9 && gif[index + 2] === 0x04) {
+      frameCount += 1;
+    }
+  }
+  // The final recovery frame is repeated so the GIF concat pipeline preserves
+  // its display duration before looping back to ready.
+  assert.equal(frameCount, 8);
 });

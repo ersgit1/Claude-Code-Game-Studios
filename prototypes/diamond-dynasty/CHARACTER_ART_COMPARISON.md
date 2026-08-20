@@ -27,6 +27,11 @@ independently identifies the title and its native SNES screenshots.
 
 ![Seven batter and pitcher animation states](screenshots/character-animation-sheet-v2.png)
 
+![Looping batter animation at corrected gameplay placement](screenshots/batter-animation.gif)
+
+`art-review.html` provides synchronized field and 4× close views, game-speed
+and slow playback, pause/step controls, and direct access to each labeled pose.
+
 The first pass's self-assigned `9.1/10` score is withdrawn. Human review
 correctly identified that the torso and equipment had more detail than the
 constant-width arms and legs. This revision uses visual evidence and concrete

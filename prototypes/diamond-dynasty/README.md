@@ -23,6 +23,10 @@ python3 -m http.server 4173
 
 Open `http://127.0.0.1:4173`.
 
+Open `http://127.0.0.1:4173/art-review.html` for synchronized field and 4×
+close views of the seven-frame batter animation, including game-speed, slow,
+pause, step, and direct-pose controls.
+
 Run the deterministic gameplay tests with:
 
 ```bash
@@ -44,6 +48,8 @@ node --test tests/*.test.mjs
   and home-run outcomes
 - Seven-state original pitcher and batter pixel animation, staged with the
   right-facing batter in the left-hand batter's box
+- Dedicated batter animation review with synchronized field/close views and a
+  reproducible looping GIF
 - Original synthesized arcade sound cues
 - Original fictional stadium art reduced to a 32-color, native 256×224 asset
 
