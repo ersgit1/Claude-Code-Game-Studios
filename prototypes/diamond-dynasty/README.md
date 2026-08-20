@@ -24,7 +24,7 @@ python3 -m http.server 4173
 Open `http://127.0.0.1:4173`.
 
 Open `http://127.0.0.1:4173/art-review.html` for synchronized field and 4×
-close views of the seven-frame batter animation, including game-speed, slow,
+close views of the nine-frame batter animation, including game-speed, slow,
 pause, step, and direct-pose controls.
 
 Run the deterministic gameplay tests with:
@@ -46,8 +46,8 @@ node --test tests/*.test.mjs
 - Balls, strikes, walks, strikeouts, outs, innings, hits, runners, and scoring
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
-- Seven-state original pitcher and batter pixel animation, staged with the
-  right-facing batter in the left-hand batter's box
+- Nine-state original rear-view batter animation, staged behind the left side
+  of the plate and facing the pitcher, plus a seven-state pitcher delivery
 - Dedicated batter animation review with synchronized field/close views and a
   reproducible looping GIF
 - Original synthesized arcade sound cues
@@ -56,9 +56,10 @@ node --test tests/*.test.mjs
 ## Findings
 
 The core at-bat is readable and replayable on desktop and mobile, the original
-sprite states communicate windup and swing timing, and the deterministic model
-passes all seventeen gameplay, animation, integer-raster, and sprite-asset
-tests. The revised character comparison and complete fourteen-pose animation
+sprite states communicate windup and a complete held follow-through, and the
+deterministic model passes all eighteen gameplay, animation, integer-raster,
+and sprite-asset tests. The revised character comparison and complete
+sixteen-pose animation
 sheet are in
 `CHARACTER_ART_COMPARISON.md`. The earlier self-assigned art score was withdrawn
 after human review; the images are now the acceptance evidence. This prototype

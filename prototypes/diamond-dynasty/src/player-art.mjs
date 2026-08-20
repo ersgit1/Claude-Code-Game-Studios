@@ -31,7 +31,7 @@ export const PLAYER_PALETTE = Object.freeze({
 const P = PLAYER_PALETTE;
 
 export const BATTER_SPRITE_PATHS = Object.freeze(
-  Array.from({ length: 7 }, (_, frame) => `./art/sprites/batter-${frame}.png`),
+  Array.from({ length: 9 }, (_, frame) => `./art/sprites/batter-${frame}.png`),
 );
 
 export const PITCHER_SPRITE_PATHS = Object.freeze(
@@ -287,16 +287,24 @@ const BATTER_POSES = Object.freeze([
   { lean: 3, hip: 2, knees: [-8, 17], ankles: [-11, 21], backElbow: [1, -46], backHand: [9, -51], frontElbow: [7, -48], frontHand: [12, -53], bat: [39, -76] },
   { lean: 4, hip: 3, knees: [-7, 18], ankles: [-11, 22], backElbow: [4, -51], backHand: [11, -58], frontElbow: [9, -53], frontHand: [13, -60], bat: [27, -88] },
   { lean: 2, hip: 2, knees: [-8, 17], ankles: [-11, 21], backElbow: [1, -49], backHand: [8, -56], frontElbow: [7, -51], frontHand: [11, -58], bat: [22, -86] },
+  { lean: 5, hip: 4, knees: [-6, 19], ankles: [-10, 23], backElbow: [7, -54], backHand: [13, -61], frontElbow: [11, -56], frontHand: [15, -63], bat: [14, -92] },
+  { lean: 4, hip: 4, knees: [-6, 19], ankles: [-10, 23], backElbow: [6, -53], backHand: [12, -60], frontElbow: [10, -55], frontHand: [14, -62], bat: [8, -90] },
 ]);
 
 export function batterFrameForElapsed(elapsed) {
   if (elapsed < 0) return 0;
   if (elapsed < 65) return 1;
   if (elapsed < 125) return 2;
-  if (elapsed < 185) return 3;
-  if (elapsed < 255) return 4;
-  if (elapsed < 350) return 5;
-  return 6;
+  if (elapsed < 180) return 3;
+  if (elapsed < 235) return 4;
+  if (elapsed < 290) return 5;
+  if (elapsed < 355) return 6;
+  if (elapsed < 445) return 7;
+  return 8;
+}
+
+export function batterFrameForSwing(startedAt, now) {
+  return startedAt === null ? 0 : batterFrameForElapsed(now - startedAt);
 }
 
 function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
@@ -317,7 +325,7 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-export function drawBatter(ctx, frame, { x = 72, y = 191, sprite = null } = {}) {
+export function drawBatter(ctx, frame, { x = 82, y = 191, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
     pixel(ctx, P.shadow, x - 28, y + 3, 56, 4);
     pixel(ctx, P.outline, x - 23, y + 1, 46, 2);

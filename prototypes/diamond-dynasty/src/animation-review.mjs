@@ -1,20 +1,22 @@
 import {
   BATTER_SPRITE_PATHS,
   batterFrameForElapsed,
-} from "./player-art.mjs?v=sprite-art-v5";
+} from "./player-art.mjs?v=sprite-art-v6";
 
 const POSE_NAMES = Object.freeze([
   "READY",
   "LOAD",
   "STRIDE",
+  "PLANT",
   "SWING",
   "CONTACT",
-  "FOLLOW",
-  "RECOVER",
+  "EXTEND",
+  "FINISH",
+  "HOLD",
 ]);
 
 const READY_HOLD_MS = 500;
-const ACTION_END_MS = 350;
+const ACTION_END_MS = 445;
 const RECOVERY_HOLD_MS = 450;
 const CYCLE_MS = READY_HOLD_MS + ACTION_END_MS + RECOVERY_HOLD_MS;
 

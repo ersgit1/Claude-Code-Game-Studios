@@ -4,10 +4,10 @@
 
 ## Outcome
 
-The rejected procedural batter and pitcher have been replaced by fourteen
-original alpha sprites: seven batting frames and seven pitching frames. Each
-frame is a curated native-scale reduction of the original concept sheet in
-`art/concepts/original-player-sprite-concept-v3.png`, built reproducibly by
+The rejected procedural batter and pitcher have been replaced by sixteen
+original alpha sprites: nine rear-view batting frames and seven pitching frames.
+Each frame is a curated native-scale reduction of the original concept sheets
+in `art/concepts/`, built reproducibly by
 `tools/build-player-sprites.sh`. The figures now use coherent full-body
 silhouettes, shaped shoulders and joints, readable hands, thigh/knee/calf
 volume, uniform folds, equipment, and frame-specific foreshortening. No sprite,
@@ -25,7 +25,7 @@ independently identifies the title and its native SNES screenshots.
 
 ## Animation evidence
 
-![Seven batter and pitcher animation states](screenshots/character-animation-sheet-v2.png)
+![Nine rear-view batter and seven pitcher animation states](screenshots/character-animation-sheet-v3.png)
 
 ![Looping batter animation at corrected gameplay placement](screenshots/batter-animation.gif)
 
@@ -39,11 +39,11 @@ checks rather than assigning itself a replacement score.
 
 | Acceptance check | Evidence |
 |---|---|
-| Joint anatomy | Separate shoulder, elbow, wrist, hip, knee, calf, and ankle silhouettes remain readable through all fourteen poses. |
+| Joint anatomy | Separate shoulder, elbow, wrist, hip, knee, calf, and ankle silhouettes remain readable through all sixteen poses. |
 | Limb volume | Arms and legs use highlight, base, shadow, and crease clusters rather than constant-width procedural segments. |
 | Frame-specific motion | Weight transfer, leg lift, stride, release, bat extension, and follow-through alter the complete silhouette. |
 | Uniform and equipment | Fictional cream, navy, and coral uniform; belt, cuffs, socks, cleats, batting gloves, helmet, bat, ball, and glove. |
-| Pixel integrity | Fourteen alpha PNGs are fixed at `104×100` or `76×58`, rendered on integer coordinates with smoothing disabled; Pixel-Bench 0.1.0 reports all fourteen as native 1x pixel art. |
+| Pixel integrity | Sixteen alpha PNGs are fixed at `104×100` or `76×58`, rendered on integer coordinates with smoothing disabled; Pixel-Bench 0.1.0 reports all sixteen as native 1x pixel art. |
 | Originality | Original AI-assisted concept and fictional character; no traced or extracted commercial sprite pixels. |
 
 The reference uses licensed team presentation and dense blue pinstripes;
@@ -53,25 +53,25 @@ animation readability, not a trace or one-to-one replica.
 
 ## Animation inventory
 
-- Batter: ready, load, stride, swing, contact, follow-through, recover
+- Batter: ready, load, stride, plant, swing, contact, extension, high finish,
+  balanced finish hold
 - Pitcher: set, leg lift, balance, stride, release, follow-through, recover
-- Gameplay staging: the right-facing batter occupies the left-hand batter's
-  box and faces the pitcher; the catcher is intentionally omitted
+- Gameplay staging: a rear three-quarter batter stands behind the left side of
+  the plate, faces the pitcher, and completes the swing; the catcher is omitted
 
 ## Concept-art pass
 
 The built-in image generation tool produced
-`art/concepts/original-player-sprite-concept-v3.png`. The selected concept was
-chroma-keyed, cropped, nearest-neighbour reduced, and curated into the fourteen
+`art/concepts/original-batter-rear-swing-concept-v5.png` using the existing
+character sheet as its style and identity reference. The selected concept was
+chroma-keyed, cropped, nearest-neighbour reduced, and curated into the sixteen
 runtime PNGs in `art/sprites/`.
 
 Final prompt, condensed only for line wrapping:
 
-> Premium original 16-bit console pixel-art production sheet with exactly
-> fourteen full-body poses: seven right-handed batter frames and seven
-> right-handed pitcher frames; one consistent fictional athlete in a cream,
-> navy, and coral uniform; readable shoulders, elbows, wrists, hands, thighs,
-> knees, calves, ankles, folds, glove, cleats, helmet, bat, and ball; flat
-> magenta chroma-key background with isolated equal-column figures; no real
-> likeness, logo, text, watermark, copied commercial sprite, stick limbs,
-> block torso, overlap, blur, or antialiasing.
+> Replace the top-row batter with nine evenly spaced rear three-quarter poses:
+> ready, load, stride, heel plant, swing, contact, extension, high follow-through,
+> and a balanced held finish. Keep the fictional cream, navy, and coral player,
+> hard 16-bit pixel clusters, identical scale and baseline, flat magenta key,
+> and complete uncropped bats; no real likeness, logo, text, watermark, copied
+> commercial sprite, catcher, field, overlap, blur, or antialiasing.

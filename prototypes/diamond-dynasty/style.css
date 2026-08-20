@@ -109,6 +109,7 @@ button:active { transform: translateY(2px); box-shadow: none !important; }
 .controls {
   display: grid;
   grid-template-columns: 150px 1fr 180px;
+  grid-template-areas: "dpad copy actions";
   align-items: center;
   gap: 22px;
   width: min(100%, 780px);
@@ -116,6 +117,7 @@ button:active { transform: translateY(2px); box-shadow: none !important; }
 }
 
 .dpad {
+  grid-area: dpad;
   display: grid;
   grid-template-columns: repeat(3, 44px);
   grid-template-rows: repeat(3, 40px);
@@ -129,11 +131,11 @@ button:active { transform: translateY(2px); box-shadow: none !important; }
 .dpad button:nth-child(4) { grid-area: 2 / 3; border-radius: 0 7px 7px 0; }
 .dpad::after { content: ""; grid-area: 2 / 2; background: #1d2438; }
 
-.control-copy { font-size: clamp(.64rem, 1.7vw, .82rem); line-height: 1.65; text-align: center; }
+.control-copy { grid-area: copy; font-size: clamp(.64rem, 1.7vw, .82rem); line-height: 1.65; text-align: center; }
 .control-copy p { margin: 0; }
 kbd { color: #ffc34d; font: inherit; }
 
-.action-buttons { display: flex; align-items: center; justify-content: center; gap: 15px; }
+.action-buttons { grid-area: actions; display: flex; min-width: 0; align-items: center; justify-content: center; gap: 15px; }
 .action-buttons button { border-radius: 50%; background: #f1d9b0; color: #4f1029; box-shadow: 0 5px 0 #8f725d, 0 0 0 3px #071328; }
 .button-small { width: 58px; height: 58px; font-size: .69rem; }
 .button-large { width: 82px; height: 82px; background: #ffc34d !important; }
@@ -145,7 +147,7 @@ footer { margin-top: 13px; color: #eaa9a8; font-size: .65rem; text-align: center
   .cabinet { padding: 13px 10px 10px; border-radius: 15px; }
   .prototype-tag { display: none; }
   .screen-shell { border-width: 5px; }
-  .controls { grid-template-columns: 132px 1fr; gap: 8px; margin-top: 13px; }
+  .controls { grid-template-columns: minmax(0, 132px) minmax(0, 1fr); grid-template-areas: "dpad actions"; gap: 8px; margin-top: 13px; }
   .control-copy { display: none; }
   .dpad { transform: scale(.86); transform-origin: left center; }
   .action-buttons { justify-content: flex-end; }

@@ -14,7 +14,7 @@ player likenesses from commercial baseball games.
 ### Approach
 
 Built a dependency-free Canvas 2D slice at a logical `256×224` resolution. The
-slice combines a 32-color original stadium background with a fourteen-frame
+slice combines a 32-color original stadium background with a sixteen-frame
 original batter/pitcher sprite set, plus the ball, HUD, hit effects, and
 synthesized audio. Gameplay uses a
 timing-plus-location contact model, three differentiated pitches, count and out
@@ -36,10 +36,10 @@ horizontal overflow.
 
 Human review rejected both procedural character passes because the limbs still
 read as assembled geometry despite the torso detail. The replacement uses
-fourteen original alpha sprites with coherent anatomy, shaped joints, skin and
+sixteen original alpha sprites with coherent anatomy, shaped joints, skin and
 cloth material planes, folds, kneecaps, calves, socks, and cleats.
 `CHARACTER_ART_COMPARISON.md` provides the side-by-side and full
-fourteen-pose sheet. The earlier self-assigned `9.1/10` art score is withdrawn;
+sixteen-pose sheet. The earlier self-assigned `9.1/10` art score is withdrawn;
 acceptance rests with human visual review. The prototype should not be
 represented as a 9/10 complete game against a finished SNES title: fielding,
 defence, team depth, broadcast transitions, and a complete game loop remain.
@@ -49,12 +49,13 @@ defence, team depth, broadcast transitions, and a complete game loop remain.
 - Native gameplay canvas: `256×224`
 - Final background asset: indexed PNG, 32-color target, 20 KB
 - Pixel-Bench 0.1.0 validation: `all images look like native 1x pixel art`
-- Automated gameplay, animation, and asset integrity: 17/17 tests passed
+- Automated gameplay, animation, and asset integrity: 18/18 tests passed
 - Desktop rendered canvas observed: `752×656`, no horizontal overflow
 - Live desktop gameplay and swing workflow: no console errors or warnings
 - Pitch repertoire: 3 pitches, 79–95 MPH, distinct duration and break
-- Batter animation: 7 frame states; pitcher animation: 7 frame states
-- Character-detail evidence: reference comparison plus fourteen-pose sheet;
+- Batter animation: 9 rear-view frame states with held follow-through; pitcher
+  animation: 7 frame states
+- Character-detail evidence: reference comparison plus sixteen-pose sheet;
   no self-assigned or external rating
 - Outcome set: ball, called strike, swinging strike, foul, out, single, double,
   triple, home run, walk, strikeout, inning turnover

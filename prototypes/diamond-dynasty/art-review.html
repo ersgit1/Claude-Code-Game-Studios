@@ -74,7 +74,7 @@
       }
       .field-batter {
         position: absolute;
-        left: 7.8125%;
+        left: 11.71875%;
         top: 41.9643%;
         width: 40.625%;
         height: 44.6429%;
@@ -128,7 +128,7 @@
       }
       .pose-strip {
         display: grid;
-        grid-template-columns: repeat(7, minmax(110px, 1fr));
+        grid-template-columns: repeat(9, minmax(95px, 1fr));
         gap: 8px;
       }
       .pose-button {
@@ -180,16 +180,16 @@
   </head>
   <body>
     <main class="review">
-      <p class="eyebrow">ORIGINAL SEVEN-FRAME BATTER</p>
+      <p class="eyebrow">ORIGINAL NINE-FRAME REAR-VIEW BATTER</p>
       <h1>BATTER ANIMATION REVIEW</h1>
-      <p class="lede">The field view shows the corrected left-hand batter's-box placement. The close view exposes the same native sprite frames at readable scale. Use game speed to judge timing, slow review to inspect transitions, or choose any pose directly.</p>
+      <p class="lede">The field view uses a rear three-quarter camera behind the batter, looking toward the pitcher. The close view exposes the same native sprite frames at readable scale. Use game speed to judge the complete swing arc, slow review to inspect transitions, or choose any pose directly.</p>
 
       <section class="views" aria-label="Synchronized batter animation views">
         <figure>
           <div class="field-stage">
-            <img class="field-batter" data-live-batter src="./art/sprites/batter-0.png" alt="Animated batter in the left-hand batter's box">
+            <img class="field-batter" data-live-batter src="./art/sprites/batter-0.png" alt="Animated rear-view batter facing the pitcher">
           </div>
-          <figcaption>FIELD VIEW — FACING THE PITCHER</figcaption>
+          <figcaption>BEHIND THE BATTER — FACING THE PITCHER</figcaption>
         </figure>
         <figure>
           <div class="close-stage">
@@ -204,21 +204,23 @@
         <button id="play-slow" type="button" aria-pressed="false">SLOW REVIEW</button>
         <button id="pause" type="button" aria-pressed="false">PAUSE</button>
         <button id="step" type="button">NEXT POSE</button>
-        <p id="frame-status" class="frame-status" aria-live="polite">1 / 7 — READY</p>
+        <p id="frame-status" class="frame-status" aria-live="polite">1 / 9 — READY</p>
       </div>
 
-      <section class="pose-strip" aria-label="Select one of seven batter poses">
+      <section class="pose-strip" aria-label="Select one of nine batter poses">
         <button class="pose-button" type="button" data-frame="0" aria-pressed="true"><img src="./art/sprites/batter-0.png" alt="Ready pose"><span>1 READY</span></button>
         <button class="pose-button" type="button" data-frame="1" aria-pressed="false"><img src="./art/sprites/batter-1.png" alt="Load pose"><span>2 LOAD</span></button>
         <button class="pose-button" type="button" data-frame="2" aria-pressed="false"><img src="./art/sprites/batter-2.png" alt="Stride pose"><span>3 STRIDE</span></button>
-        <button class="pose-button" type="button" data-frame="3" aria-pressed="false"><img src="./art/sprites/batter-3.png" alt="Swing pose"><span>4 SWING</span></button>
-        <button class="pose-button" type="button" data-frame="4" aria-pressed="false"><img src="./art/sprites/batter-4.png" alt="Contact pose"><span>5 CONTACT</span></button>
-        <button class="pose-button" type="button" data-frame="5" aria-pressed="false"><img src="./art/sprites/batter-5.png" alt="Follow-through pose"><span>6 FOLLOW</span></button>
-        <button class="pose-button" type="button" data-frame="6" aria-pressed="false"><img src="./art/sprites/batter-6.png" alt="Recovery pose"><span>7 RECOVER</span></button>
+        <button class="pose-button" type="button" data-frame="3" aria-pressed="false"><img src="./art/sprites/batter-3.png" alt="Heel-plant pose"><span>4 PLANT</span></button>
+        <button class="pose-button" type="button" data-frame="4" aria-pressed="false"><img src="./art/sprites/batter-4.png" alt="Swing pose"><span>5 SWING</span></button>
+        <button class="pose-button" type="button" data-frame="5" aria-pressed="false"><img src="./art/sprites/batter-5.png" alt="Contact pose"><span>6 CONTACT</span></button>
+        <button class="pose-button" type="button" data-frame="6" aria-pressed="false"><img src="./art/sprites/batter-6.png" alt="Post-contact extension pose"><span>7 EXTEND</span></button>
+        <button class="pose-button" type="button" data-frame="7" aria-pressed="false"><img src="./art/sprites/batter-7.png" alt="High follow-through pose"><span>8 FINISH</span></button>
+        <button class="pose-button" type="button" data-frame="8" aria-pressed="false"><img src="./art/sprites/batter-8.png" alt="Balanced finish hold pose"><span>9 HOLD</span></button>
       </section>
 
-      <p class="timing-note">Game speed uses the live swing thresholds: 65 ms load, 60 ms stride, 60 ms swing, 70 ms contact, and 95 ms follow-through, with readable ready and recovery holds around the action.</p>
+      <p class="timing-note">Game speed uses the live swing thresholds: 65 ms load, 60 ms stride, 55 ms plant, 55 ms swing, 55 ms contact, 65 ms extension, and 90 ms high finish, followed by a readable balanced hold.</p>
     </main>
-    <script type="module" src="./src/animation-review.mjs?v=1"></script>
+    <script type="module" src="./src/animation-review.mjs?v=2"></script>
   </body>
 </html>

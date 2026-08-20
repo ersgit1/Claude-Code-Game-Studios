@@ -17,11 +17,11 @@ import { BallparkAudio } from "./audio.mjs";
 import {
   BATTER_SPRITE_PATHS,
   PITCHER_SPRITE_PATHS,
-  batterFrameForElapsed,
+  batterFrameForSwing,
   drawBatter as drawPlayerBatter,
   drawPitcher as drawPlayerPitcher,
   pitcherFrameForProgress,
-} from "./player-art.mjs?v=sprite-art-v5";
+} from "./player-art.mjs?v=sprite-art-v6";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -41,7 +41,7 @@ const playerSprites = {
 const audio = new BallparkAudio();
 let state = createGameState();
 let started = false;
-let swingStartedAt = -Infinity;
+let swingStartedAt = null;
 let resolvedAt = 0;
 let flight = null;
 let shakeUntil = 0;
@@ -119,8 +119,7 @@ function drawPitcher(now) {
 }
 
 function drawBatter(now) {
-  const elapsed = now - swingStartedAt;
-  const frame = batterFrameForElapsed(elapsed);
+  const frame = batterFrameForSwing(swingStartedAt, now);
   drawPlayerBatter(ctx, frame, { sprite: playerSprites.batter[frame] });
 }
 
@@ -193,7 +192,7 @@ function startPitch() {
     document.querySelector("#start-card").classList.add("is-hidden");
   }
   if (state.phase === "resolved") state = readyNextPitch(state);
-  swingStartedAt = -Infinity;
+  swingStartedAt = null;
   const previous = state;
   state = beginPitch(state, performance.now());
   if (state !== previous) audio.pitch();

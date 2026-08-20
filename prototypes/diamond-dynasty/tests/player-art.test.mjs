@@ -8,6 +8,7 @@ import {
   BATTER_SPRITE_PATHS,
   PITCHER_SPRITE_PATHS,
   batterFrameForElapsed,
+  batterFrameForSwing,
   drawBatter,
   drawPitcher,
   pitcherFrameForProgress,
@@ -44,12 +45,16 @@ function captureRaster(draw) {
   return rectangles;
 }
 
-test("batter animation exposes load, contact, and follow-through states", () => {
+test("batter animation exposes contact, extension, and a held follow-through", () => {
+  assert.equal(batterFrameForSwing(null, 1000), 0);
+  assert.equal(batterFrameForSwing(1000, 1000), 1);
   assert.equal(batterFrameForElapsed(-1), 0);
   assert.equal(batterFrameForElapsed(80), 2);
   assert.equal(batterFrameForElapsed(150), 3);
-  assert.equal(batterFrameForElapsed(300), 5);
-  assert.equal(batterFrameForElapsed(1000), 6);
+  assert.equal(batterFrameForElapsed(250), 5);
+  assert.equal(batterFrameForElapsed(320), 6);
+  assert.equal(batterFrameForElapsed(400), 7);
+  assert.equal(batterFrameForElapsed(1000), 8);
 });
 
 test("pitcher animation exposes seven ordered delivery states", () => {
@@ -59,7 +64,7 @@ test("pitcher animation exposes seven ordered delivery states", () => {
 
 test("detailed character limbs stay on the native integer pixel grid", () => {
   const rasters = [
-    ...Array.from({ length: 7 }, (_, frame) => captureRaster((ctx) => drawBatter(ctx, frame))),
+    ...Array.from({ length: 9 }, (_, frame) => captureRaster((ctx) => drawBatter(ctx, frame))),
     ...Array.from({ length: 7 }, (_, frame) => captureRaster((ctx) => drawPitcher(ctx, frame))),
   ];
   for (const raster of rasters) {
@@ -74,19 +79,19 @@ test("detailed character limbs stay on the native integer pixel grid", () => {
 test("every batter and pitcher pose has a distinct full-body raster", () => {
   const signature = (draw) => JSON.stringify(captureRaster(draw));
   const batterFrames = new Set(Array.from(
-    { length: 7 },
+    { length: 9 },
     (_, frame) => signature((ctx) => drawBatter(ctx, frame)),
   ));
   const pitcherFrames = new Set(Array.from(
     { length: 7 },
     (_, frame) => signature((ctx) => drawPitcher(ctx, frame)),
   ));
-  assert.equal(batterFrames.size, 7);
+  assert.equal(batterFrames.size, 9);
   assert.equal(pitcherFrames.size, 7);
 });
 
-test("sprite manifests expose seven alpha PNG frames at native dimensions", () => {
-  assert.equal(BATTER_SPRITE_PATHS.length, 7);
+test("sprite manifests expose nine batter and seven pitcher alpha PNG frames", () => {
+  assert.equal(BATTER_SPRITE_PATHS.length, 9);
   assert.equal(PITCHER_SPRITE_PATHS.length, 7);
   for (const path of BATTER_SPRITE_PATHS) {
     assert.deepEqual(pngDimensions(path), { width: 104, height: 100, colorType: 6 });
@@ -97,10 +102,10 @@ test("sprite manifests expose seven alpha PNG frames at native dimensions", () =
   assert.equal(new Set([
     ...BATTER_SPRITE_PATHS.map(pngHash),
     ...PITCHER_SPRITE_PATHS.map(pngHash),
-  ]).size, 14);
+  ]).size, 16);
 });
 
-test("right-facing batter renders in the left batter box on integer coordinates", () => {
+test("rear-view batter renders behind the left side of the plate on integer coordinates", () => {
   const images = [];
   const context = {
     fillStyle: "",
@@ -112,14 +117,15 @@ test("right-facing batter renders in the left batter box on integer coordinates"
   drawBatter(context, 0, { sprite: batter });
   drawPitcher(context, 0, { sprite: pitcher });
   assert.deepEqual(images, [
-    [batter, 20, 94],
+    [batter, 30, 94],
     [pitcher, 90, 65],
   ]);
-  assert.ok(images[0][1] >= 0 && images[0][1] + batter.naturalWidth <= 128);
+  assert.ok(images[0][1] >= 0 && images[0][1] < images[1][1]);
+  assert.ok(images[0][1] + batter.naturalWidth <= 256);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });
 
-test("batter review artifact contains a full seven-pose cycle and recovery hold", () => {
+test("batter review artifact contains a full nine-pose cycle and finish hold", () => {
   const gif = animationGif();
   assert.equal(gif.subarray(0, 6).toString(), "GIF89a");
   assert.equal(gif.readUInt16LE(6), 512);
@@ -131,7 +137,7 @@ test("batter review artifact contains a full seven-pose cycle and recovery hold"
       frameCount += 1;
     }
   }
-  // The final recovery frame is repeated so the GIF concat pipeline preserves
-  // its display duration before looping back to ready.
-  assert.equal(frameCount, 8);
+  // The final follow-through hold is repeated so the GIF concat pipeline
+  // preserves its display duration before looping back to ready.
+  assert.equal(frameCount, 10);
 });
