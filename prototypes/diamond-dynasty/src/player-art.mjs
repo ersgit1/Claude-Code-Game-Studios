@@ -82,13 +82,109 @@ function pixelLine(ctx, color, from, to, thickness = 1) {
   }
 }
 
+function segmentGeometry(from, to, startRadius, endRadius) {
+  const dx = to[0] - from[0];
+  const dy = to[1] - from[1];
+  const length = Math.max(1, Math.hypot(dx, dy));
+  const normal = [-dy / length, dx / length];
+  return {
+    normal,
+    points: [
+      [from[0] + normal[0] * startRadius, from[1] + normal[1] * startRadius],
+      [to[0] + normal[0] * endRadius, to[1] + normal[1] * endRadius],
+      [to[0] - normal[0] * endRadius, to[1] - normal[1] * endRadius],
+      [from[0] - normal[0] * startRadius, from[1] - normal[1] * startRadius],
+    ],
+  };
+}
+
+function drawTaperedSegment(ctx, from, to, startRadius, endRadius, colors) {
+  const outline = segmentGeometry(from, to, startRadius + 1.6, endRadius + 1.35);
+  const body = segmentGeometry(from, to, startRadius, endRadius);
+  polygon(ctx, P.outline, outline.points);
+  polygon(ctx, colors.base, body.points);
+
+  // A broad lower-right shadow plane and a broken upper-left highlight make the
+  // segment read as muscle/cloth volume instead of a constant-width stick.
+  const [nx, ny] = body.normal;
+  polygon(ctx, colors.shadow, [
+    [from[0] + nx * startRadius * 0.28, from[1] + ny * startRadius * 0.28],
+    [to[0] + nx * endRadius * 0.28, to[1] + ny * endRadius * 0.28],
+    [to[0] + nx * endRadius, to[1] + ny * endRadius],
+    [from[0] + nx * startRadius, from[1] + ny * startRadius],
+  ]);
+  pixelLine(
+    ctx,
+    colors.highlight,
+    [from[0] - nx * startRadius * 0.48, from[1] - ny * startRadius * 0.48],
+    [to[0] - nx * endRadius * 0.48, to[1] - ny * endRadius * 0.48],
+    1,
+  );
+}
+
+function drawJoint(ctx, at, radius, colors) {
+  const [x, y] = at;
+  polygon(ctx, P.outline, [
+    [x - radius, y - radius * 0.45], [x - radius * 0.45, y - radius],
+    [x + radius * 0.45, y - radius], [x + radius, y - radius * 0.35],
+    [x + radius, y + radius * 0.35], [x + radius * 0.35, y + radius],
+    [x - radius * 0.45, y + radius], [x - radius, y + radius * 0.35],
+  ]);
+  polygon(ctx, colors.base, [
+    [x - radius + 1, y - 1], [x - 1, y - radius + 1],
+    [x + radius - 1, y - 1], [x + 1, y + radius - 1],
+    [x - radius + 1, y + 1],
+  ]);
+  pixel(ctx, colors.highlight, x - 1, y - radius + 1, 2, 1);
+  pixel(ctx, colors.shadow, x - radius + 1, y + 1, Math.max(2, radius), 2);
+  pixel(ctx, P.outlineSoft, x - 1, y + radius - 1, 2, 1);
+}
+
 function shadedLimb(ctx, from, joint, to, width, colors) {
-  pixelLine(ctx, P.outline, from, joint, width + 3);
-  pixelLine(ctx, P.outline, joint, to, width + 3);
-  pixelLine(ctx, colors.base, from, joint, width);
-  pixelLine(ctx, colors.base, joint, to, width);
-  pixelLine(ctx, colors.shadow, [from[0] - 1, from[1] + 1], [joint[0] - 1, joint[1] + 1], Math.max(2, width - 3));
-  pixelLine(ctx, colors.highlight, [from[0] + 1, from[1] - 1], [joint[0] + 1, joint[1] - 1], 1);
+  const upperRadius = width * 0.58;
+  const jointRadius = width * 0.52;
+  const lowerRadius = width * 0.43;
+  const endRadius = width * 0.31;
+  drawTaperedSegment(ctx, from, joint, upperRadius, jointRadius, colors);
+  drawTaperedSegment(ctx, joint, to, jointRadius, endRadius, colors);
+  drawJoint(ctx, joint, Math.max(2.5, jointRadius), colors);
+
+  // Joint-side creases are deliberately short, broken clusters like the best
+  // 16-bit sports sprites; they preserve articulation at animation speed.
+  const lower = segmentGeometry(joint, to, jointRadius, endRadius);
+  const [nx, ny] = lower.normal;
+  pixelLine(
+    ctx,
+    P.outlineSoft,
+    [joint[0] - nx * jointRadius * 0.55, joint[1] - ny * jointRadius * 0.55],
+    [joint[0] + nx * jointRadius * 0.25, joint[1] + ny * jointRadius * 0.25],
+    1,
+  );
+}
+
+function drawSleevedArm(ctx, shoulder, elbow, hand, width, sleeveColors, cuffColor = P.coral) {
+  const sleeveRadius = width * 0.58;
+  const elbowRadius = width * 0.46;
+  const wristRadius = width * 0.28;
+  const skinColors = {
+    base: P.skin,
+    shadow: P.skinShadow,
+    highlight: P.skinLight,
+  };
+  drawTaperedSegment(ctx, shoulder, elbow, sleeveRadius, elbowRadius, sleeveColors);
+  drawTaperedSegment(ctx, elbow, hand, elbowRadius, wristRadius, skinColors);
+  drawJoint(ctx, elbow, Math.max(2.5, elbowRadius), skinColors);
+
+  const upper = segmentGeometry(shoulder, elbow, sleeveRadius, elbowRadius);
+  const [nx, ny] = upper.normal;
+  pixelLine(
+    ctx,
+    cuffColor,
+    [elbow[0] - nx * elbowRadius * 0.7, elbow[1] - ny * elbowRadius * 0.7],
+    [elbow[0] + nx * elbowRadius * 0.7, elbow[1] + ny * elbowRadius * 0.7],
+    1,
+  );
+  pixel(ctx, P.skinDeep, elbow[0] - 1, elbow[1] + 1, 2, 1);
 }
 
 function drawCleat(ctx, ankle, facing = 1, scale = 1) {
@@ -121,6 +217,28 @@ function drawGlove(ctx, hand, scale = 1) {
   ]);
   pixelLine(ctx, P.leatherLight, [x - 2 * scale, y - 2 * scale], [x + scale, y + scale], scale);
   pixelLine(ctx, P.leatherDeep, [x - scale, y + 2 * scale], [x + 2 * scale, y], scale);
+}
+
+function drawBattingHands(ctx, backHand, frontHand) {
+  const center = [
+    Math.round((backHand[0] + frontHand[0]) / 2),
+    Math.round((backHand[1] + frontHand[1]) / 2),
+  ];
+  polygon(ctx, P.outline, [
+    [center[0] - 6, center[1] - 4], [center[0] + 3, center[1] - 5],
+    [center[0] + 7, center[1] - 1], [center[0] + 5, center[1] + 5],
+    [center[0] - 5, center[1] + 4], [center[0] - 7, center[1]],
+  ]);
+  polygon(ctx, P.navy, [
+    [center[0] - 4, center[1] - 3], [center[0] + 2, center[1] - 3],
+    [center[0] + 5, center[1] - 1], [center[0] + 3, center[1] + 3],
+    [center[0] - 4, center[1] + 2],
+  ]);
+  pixel(ctx, P.white, center[0] - 4, center[1] - 2, 7, 2);
+  pixel(ctx, P.coralLight, center[0] - 2, center[1] + 1, 5, 1);
+  pixel(ctx, P.outlineSoft, center[0] + 2, center[1] - 2, 1, 5);
+  pixel(ctx, P.outlineSoft, center[0] - 1, center[1] - 2, 1, 4);
+  pixel(ctx, P.coral, center[0] - 6, center[1] - 1, 2, 3);
 }
 
 function drawHead(ctx, x, y, scale = 1, facing = -1) {
@@ -174,12 +292,18 @@ export function batterFrameForElapsed(elapsed) {
 }
 
 function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
-  shadedLimb(ctx, hip, knee, ankle, 8, {
+  shadedLimb(ctx, hip, knee, ankle, 9, {
     base: P.cream,
     shadow: P.creamShadow,
     highlight: P.creamLight,
   });
-  pixelLine(ctx, P.coral, [knee[0] + (isFront ? 2 : -2), knee[1]], [ankle[0] + (isFront ? 2 : -2), ankle[1] - 3], 1);
+  const outside = isFront ? 2 : -2;
+  pixelLine(ctx, P.coral, [knee[0] + outside, knee[1] + 2], [ankle[0] + outside, ankle[1] - 4], 1);
+  // Trouser tension above the knee plus a shadowed kneecap/calf break.
+  pixelLine(ctx, P.creamDeep, [hip[0] + outside, hip[1] + 4], [knee[0], knee[1] - 3], 1);
+  pixel(ctx, P.creamLight, knee[0] - 2, knee[1] - 4, 4, 2);
+  pixel(ctx, P.creamDeep, knee[0] - 3, knee[1] + 2, 5, 2);
+  pixel(ctx, P.creamLight, ankle[0] - outside, ankle[1] - 8, 2, 3);
   pixel(ctx, P.navy, ankle[0] - 3, ankle[1] - 5, 7, 5);
   pixel(ctx, P.coral, ankle[0] - 3, ankle[1] - 4, 7, 1);
   drawCleat(ctx, ankle, isFront ? 1 : -1);
@@ -238,16 +362,13 @@ export function drawBatter(ctx, frame, { x = 204, y = 191 } = {}) {
   pixel(ctx, P.coral, x + 2 + pose.lean, y - 44, 2, 1);
   pixel(ctx, P.creamLight, x + 4 + pose.lean, y - 43, 2, 1);
 
-  shadedLimb(ctx, shoulderBack, backElbow, backHand, 7, {
+  drawSleevedArm(ctx, shoulderBack, backElbow, backHand, 8, {
     base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
   });
-  shadedLimb(ctx, shoulderFront, frontElbow, frontHand, 7, {
+  drawSleevedArm(ctx, shoulderFront, frontElbow, frontHand, 8, {
     base: P.cream, shadow: P.creamShadow, highlight: P.creamLight,
-  });
-  pixel(ctx, P.coral, backElbow[0] - 3, backElbow[1] - 1, 7, 2);
-  pixel(ctx, P.navy, frontHand[0] - 4, frontHand[1] - 3, 8, 6);
-  pixel(ctx, P.white, frontHand[0] - 3, frontHand[1] - 2, 6, 2);
-  pixel(ctx, P.coralLight, frontHand[0] - 1, frontHand[1] + 1, 3, 1);
+  }, P.navy);
+  drawBattingHands(ctx, backHand, frontHand);
 
   drawHead(ctx, x + pose.lean + 1, y - 64, 1, -1);
   // Ear flap and jaw guard make the batting helmet read separately from a cap.
@@ -265,14 +386,16 @@ export function drawCatcher(ctx, { x = 151, y = 184 } = {}) {
 
   pixel(ctx, P.shadow, x - 21, y + 4, 42, 4);
   pixel(ctx, P.outline, x - 18, y + 2, 36, 2);
-  shadedLimb(ctx, [hip[0] - 3, hip[1]], leftKnee, leftAnkle, 7, {
+  shadedLimb(ctx, [hip[0] - 3, hip[1]], leftKnee, leftAnkle, 8, {
     base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
   });
-  shadedLimb(ctx, [hip[0] + 3, hip[1]], rightKnee, rightAnkle, 7, {
+  shadedLimb(ctx, [hip[0] + 3, hip[1]], rightKnee, rightAnkle, 8, {
     base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
   });
   pixel(ctx, P.coral, leftKnee[0] - 4, leftKnee[1] - 1, 8, 2);
   pixel(ctx, P.coral, rightKnee[0] - 3, rightKnee[1] - 1, 8, 2);
+  pixel(ctx, P.creamLight, leftKnee[0] - 2, leftKnee[1] - 4, 4, 2);
+  pixel(ctx, P.creamLight, rightKnee[0] - 2, rightKnee[1] - 4, 4, 2);
   drawCleat(ctx, leftAnkle, -1, 0.75);
   drawCleat(ctx, rightAnkle, 1, 0.75);
 
@@ -293,11 +416,11 @@ export function drawCatcher(ctx, { x = 151, y = 184 } = {}) {
   pixel(ctx, P.navyDeep, x - 4, y - 16, 8, 3);
 
   const gloveHand = [x - 15, y - 22];
-  shadedLimb(ctx, [x - 8, y - 27], [x - 13, y - 27], gloveHand, 5, {
+  shadedLimb(ctx, [x - 8, y - 27], [x - 13, y - 27], gloveHand, 6, {
     base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
   });
   drawGlove(ctx, gloveHand, 0.9);
-  shadedLimb(ctx, [x + 8, y - 27], [x + 12, y - 23], [x + 8, y - 18], 5, {
+  shadedLimb(ctx, [x + 8, y - 27], [x + 12, y - 23], [x + 8, y - 18], 6, {
     base: P.skin, shadow: P.skinShadow, highlight: P.skinLight,
   });
 
@@ -356,13 +479,15 @@ export function drawPitcher(ctx, frame, { x = 128, y = 123 } = {}) {
   pixel(ctx, P.shadow, x - 15, y + 3, 31, 3);
   pixel(ctx, P.outline, x - 11, y + 1, 23, 2);
 
-  shadedLimb(ctx, leftHip, leftKnee, leftAnkle, 5, {
+  shadedLimb(ctx, leftHip, leftKnee, leftAnkle, 6, {
     base: P.creamShadow, shadow: P.creamDeep, highlight: P.cream,
   });
-  shadedLimb(ctx, rightHip, rightKnee, rightAnkle, 5, {
+  shadedLimb(ctx, rightHip, rightKnee, rightAnkle, 6, {
     base: P.cream, shadow: P.creamShadow, highlight: P.creamLight,
   });
   pixelLine(ctx, P.coral, [rightKnee[0] + 1, rightKnee[1]], [rightAnkle[0] + 1, rightAnkle[1] - 2], 1);
+  pixel(ctx, P.creamLight, rightKnee[0] - 2, rightKnee[1] - 3, 4, 2);
+  pixel(ctx, P.creamDeep, leftKnee[0] - 2, leftKnee[1] + 1, 4, 2);
   drawCleat(ctx, leftAnkle, -1, 0.75);
   drawCleat(ctx, rightAnkle, 1, 0.75);
 
@@ -390,11 +515,10 @@ export function drawPitcher(ctx, frame, { x = 128, y = 123 } = {}) {
   const throwHand = point(pose.throwHand);
   const gloveElbow = point(pose.gloveElbow);
   const gloveHand = point(pose.gloveHand);
-  shadedLimb(ctx, throwShoulder, throwElbow, throwHand, 4, {
-    base: P.skin, shadow: P.skinShadow, highlight: P.skinLight,
+  drawSleevedArm(ctx, throwShoulder, throwElbow, throwHand, 5, {
+    base: P.cream, shadow: P.creamShadow, highlight: P.creamLight,
   });
-  pixel(ctx, P.navy, throwShoulder[0] - 2, throwShoulder[1] - 2, 5, 5);
-  shadedLimb(ctx, gloveShoulder, gloveElbow, gloveHand, 4, {
+  drawSleevedArm(ctx, gloveShoulder, gloveElbow, gloveHand, 5, {
     base: P.navy, shadow: P.navyDeep, highlight: P.navyLight,
   });
   drawGlove(ctx, gloveHand, 0.75);

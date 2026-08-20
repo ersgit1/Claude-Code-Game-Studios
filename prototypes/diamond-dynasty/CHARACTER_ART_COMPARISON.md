@@ -5,7 +5,10 @@
 ## Outcome
 
 The original batter, pitcher, and catcher have been rebuilt as native-grid
-pixel characters. The shipped art is rasterized from original geometry in
+pixel characters. The second art pass specifically replaces constant-width
+line limbs with tapered upper and lower segments, joint silhouettes, cloth and
+muscle shadow planes, skin forearms, cuffs, trouser creases, kneecaps, calves,
+socks, and cleats. The shipped art is rasterized from original geometry in
 `src/player-art.mjs`; no pixels, palettes, poses, logos, uniforms, names, or
 likenesses were extracted from a commercial game.
 
@@ -18,25 +21,28 @@ and is not loaded by the prototype. Source:
 [MobyGames' screenshot index](https://www.mobygames.com/game/26316/ken-griffey-jr-presents-major-league-baseball/screenshots/)
 independently identifies the title and its native SNES screenshots.
 
-## Internal detail rubric
+## Animation evidence
 
-This is a production-target check, not an external review score.
+![Seven batter and pitcher animation states](screenshots/character-animation-sheet.png)
 
-| Criterion | Weight | Result | Evidence |
-|---|---:|---:|---|
-| Native silhouette and scale | 20% | 8.5/10 | Batter is a readable 75-pixel figure; pitcher preserves depth while adding a 40-pixel articulated silhouette. |
-| Anatomy and pose articulation | 20% | 9.0/10 | Separate shoulders, elbows, hands, hips, knees, ankles, weight transfer, stride, release, and follow-through. |
-| Palette, contour, and material shading | 20% | 9.0/10 | Hard-pixel scanline rasterizer; outline hierarchy; highlight/base/shadow/deep ramps for skin, cloth, leather, wood, and mask bars. |
-| Uniform and equipment detail | 15% | 9.0/10 | Original crest, piping, belt, buckle, socks, cleats, batting gloves, helmet flap, bat grain, glove web, catcher mask, chest protector, and leg guards. |
-| Animation coverage and readability | 20% | 9.5/10 | Seven batter states and seven pitcher states; catcher has a detailed set pose; each major motion changes the full silhouette. |
-| Originality and pixel integrity | 5% | 10/10 | Original code and characters, integer-grid raster output, no antialiasing or commercial asset reuse. |
-| **Weighted result** | **100%** | **9.1/10** | Meets the requested 9/10 internal detail target. |
+The first pass's self-assigned `9.1/10` score is withdrawn. Human review
+correctly identified that the torso and equipment had more detail than the
+constant-width arms and legs. This revision uses visual evidence and concrete
+checks rather than assigning itself a replacement score.
 
-The remaining visible difference is intentional: the reference uses licensed
-team presentation and dense blue pinstripes; Diamond Dynasty uses a fictional
-navy, cream, and coral identity with broader shadow clusters. Character art
-quality is now comparable in detail density without attempting a trace or
-one-to-one replica.
+| Acceptance check | Evidence |
+|---|---|
+| Joint anatomy | Separate shoulder, elbow, wrist, hip, knee, calf, and ankle silhouettes; joint clusters remain visible through all fourteen moving poses. |
+| Limb volume | Upper and lower limbs taper independently and carry highlight, base, shadow, and crease clusters rather than uniform-width strokes. |
+| Frame-specific motion | Weight transfer, leg lift, stride, release, bat extension, and follow-through alter the complete silhouette. |
+| Uniform and equipment | Original crest, piping, belt, buckle, cuffs, socks, cleats, batting gloves, helmet flap, bat grain, glove web, mask, chest protector, and guards. |
+| Pixel integrity | Automated raster tests require positive integer rectangles for every batter, pitcher, and catcher render; no canvas antialiasing is used. |
+| Originality | Original code and fictional characters; no traced or extracted commercial sprite pixels. |
+
+The reference uses licensed team presentation and dense blue pinstripes;
+Diamond Dynasty uses a fictional navy, cream, and coral identity with broader
+shadow clusters. The intended comparison is anatomical detail density and
+animation readability, not a trace or one-to-one replica.
 
 ## Animation inventory
 

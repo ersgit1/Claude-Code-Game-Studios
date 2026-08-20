@@ -34,25 +34,28 @@ legible over the field at native resolution. Desktop and `390×844` mobile QA
 both preserve the 8:7 game screen, usable controls, and scoreboard without
 horizontal overflow.
 
-The rebuilt character set scores 9.1/10 on the internal detail rubric in
-`CHARACTER_ART_COMPARISON.md`: comparable native scale, articulated anatomy,
-multi-ramp shading, detailed fictional uniforms and equipment, and seven-state
-delivery and swing animation. This is not an external review score. The
-prototype should not be represented as a 9/10 complete game against a finished
-SNES title: fielding, defence, team depth, broadcast transitions, and a complete
-game loop remain.
+Human review rejected the first rebuilt character set because its limbs still
+used constant-width strokes despite the torso detail. The second pass replaces
+those strokes with tapered upper and lower anatomy, shaped joints, skin and
+cloth material planes, cuffs, trouser creases, kneecaps, calves, socks, and
+cleats. `CHARACTER_ART_COMPARISON.md` now provides the side-by-side and full
+fourteen-pose sheet. The earlier self-assigned `9.1/10` art score is withdrawn;
+acceptance rests with human visual review. The prototype should not be
+represented as a 9/10 complete game against a finished SNES title: fielding,
+defence, team depth, broadcast transitions, and a complete game loop remain.
 
 ### Metrics
 
 - Native gameplay canvas: `256×224`
 - Final background asset: indexed PNG, 32-color target, 20 KB
 - Pixel-Bench 0.1.0 validation: `all images look like native 1x pixel art`
-- Automated gameplay and animation model: 13/13 tests passed
+- Automated gameplay, animation, and raster integrity: 15/15 tests passed
 - Desktop rendered canvas observed: `752×656`, no horizontal overflow
 - Mobile QA viewport: `390×844`, no console errors or warnings
 - Pitch repertoire: 3 pitches, 79–95 MPH, distinct duration and break
 - Batter animation: 7 frame states; pitcher animation: 7 frame states
-- Character-detail rubric: 9.1/10 internal target score; no external rating yet
+- Character-detail evidence: reference comparison plus fourteen-pose sheet;
+  no self-assigned or external rating
 - Outcome set: ball, called strike, swinging strike, foul, out, single, double,
   triple, home run, walk, strikeout, inning turnover
 - External player rating: not yet collected

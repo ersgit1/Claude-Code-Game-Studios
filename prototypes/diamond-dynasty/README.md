@@ -51,9 +51,9 @@ node --test tests/*.test.mjs
 
 The core at-bat is readable and replayable on desktop and mobile, the original
 sprite states communicate windup and swing timing, and the deterministic model
-passes all thirteen gameplay and animation tests. The rebuilt character set
-scores 9.1/10 on the explicit internal detail rubric in
-`CHARACTER_ART_COMPARISON.md`. That is not an external review score, and this
-prototype is not yet a complete game comparable feature-for-feature with a
-finished SNES cartridge. See `REPORT.md` for the evidence and production
-recommendation.
+passes all fifteen gameplay, animation, and integer-raster tests. The revised
+character comparison and complete fourteen-pose animation sheet are in
+`CHARACTER_ART_COMPARISON.md`. The earlier self-assigned art score was withdrawn
+after human review; the images are now the acceptance evidence. This prototype
+is not yet a complete game comparable feature-for-feature with a finished SNES
+cartridge. See `REPORT.md` for the production recommendation.

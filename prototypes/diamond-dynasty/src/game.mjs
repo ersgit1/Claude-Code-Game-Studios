@@ -20,7 +20,7 @@ import {
   drawCatcher as drawPlayerCatcher,
   drawPitcher as drawPlayerPitcher,
   pitcherFrameForProgress,
-} from "./player-art.mjs?v=character-rebuild-v2";
+} from "./player-art.mjs?v=articulated-limbs-v3";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
