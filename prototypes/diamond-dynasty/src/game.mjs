@@ -14,6 +14,13 @@ import {
   samplePitch,
 } from "./game-model.mjs";
 import { BallparkAudio } from "./audio.mjs";
+import {
+  batterFrameForElapsed,
+  drawBatter as drawPlayerBatter,
+  drawCatcher as drawPlayerCatcher,
+  drawPitcher as drawPlayerPitcher,
+  pitcherFrameForProgress,
+} from "./player-art.mjs?v=character-rebuild-v2";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
@@ -97,74 +104,16 @@ function drawAim() {
 
 function drawPitcher(now) {
   const progress = state.phase === "pitching" ? pitchProgress(state.pitch, now) : 0;
-  const frame = progress < .18 ? 0 : progress < .42 ? 1 : progress < .68 ? 2 : 3;
-  const bob = frame === 1 ? -2 : frame === 3 ? 1 : 0;
-  const x = 128, y = 118 + bob;
-  rect("#123d5a", x - 6, y + 1, 12, 2);
-  rect(COLORS.ink, x - 4, y - 17, 8, 3);
-  rect(COLORS.red, x - 5, y - 19, 9, 3);
-  rect(COLORS.skinShadow, x - 3, y - 16, 6, 5);
-  rect(COLORS.skin, x - 2, y - 16, 4, 4);
-  rect(COLORS.cream, x - 5, y - 11, 10, 9);
-  rect(COLORS.red, x - 5, y - 9, 10, 3);
-  if (frame === 0) {
-    rect(COLORS.skin, x - 7, y - 10, 3, 8); rect("#754028", x + 4, y - 10, 4, 5);
-    rect(COLORS.jerseyShadow, x - 4, y - 2, 3, 9); rect(COLORS.jersey, x + 1, y - 2, 3, 9);
-  } else if (frame === 1) {
-    rect(COLORS.skin, x - 2, y - 14, 3, 7); rect("#754028", x + 1, y - 14, 4, 5);
-    rect(COLORS.jerseyShadow, x - 4, y - 2, 3, 9); rect(COLORS.jersey, x + 1, y - 2, 7, 3); rect(COLORS.jersey, x + 5, y, 3, 5);
-  } else if (frame === 2) {
-    rect(COLORS.skin, x - 10, y - 10, 7, 3); rect("#754028", x + 4, y - 10, 6, 4);
-    rect(COLORS.jerseyShadow, x - 5, y - 2, 8, 3); rect(COLORS.jersey, x + 2, y, 7, 3); rect(COLORS.jersey, x - 5, y + 1, 3, 6);
-  } else {
-    rect(COLORS.skin, x + 4, y - 8, 7, 3); rect("#754028", x - 8, y - 8, 5, 4);
-    rect(COLORS.jerseyShadow, x - 5, y - 2, 9, 3); rect(COLORS.jersey, x + 3, y, 6, 3); rect(COLORS.jersey, x - 5, y + 1, 3, 6);
-  }
-  rect(COLORS.ink, x - 6, y + 6, 6, 2); rect(COLORS.ink, x + 2, y + 5, 6, 2);
+  drawPlayerPitcher(ctx, pitcherFrameForProgress(progress));
 }
 
 function drawCatcher() {
-  const x = 151, y = 181;
-  rect("#3b241b", x - 11, y + 5, 23, 4);
-  rect(COLORS.ink, x - 7, y - 19, 14, 7);
-  rect(COLORS.gold, x - 6, y - 18, 12, 1);
-  rect(COLORS.skinShadow, x - 5, y - 12, 10, 5);
-  rect(COLORS.teal, x - 8, y - 7, 16, 11);
-  rect("#075c69", x - 13, y + 1, 8, 8); rect("#075c69", x + 5, y + 1, 8, 8);
-  rect(COLORS.gold, x - 3, y - 7, 6, 10);
-  rect("#754028", x - 13, y - 8, 6, 7);
+  drawPlayerCatcher(ctx);
 }
 
 function drawBatter(now) {
   const elapsed = now - swingStartedAt;
-  const frame = elapsed < 0 ? 0 : elapsed < 70 ? 1 : elapsed < 145 ? 2 : elapsed < 230 ? 3 : 4;
-  const x = 204, y = 190;
-  rect("#3b241b", x - 20, y + 2, 38, 5);
-  rect(COLORS.ink, x - 4, y - 60, 17, 4);
-  rect(COLORS.red, x - 7, y - 64, 17, 5);
-  rect(COLORS.skinShadow, x - 5, y - 56, 14, 10);
-  rect(COLORS.skin, x - 3, y - 56, 10, 8);
-  rect(COLORS.ink, x + 7, y - 52, 2, 2);
-  rect(COLORS.cream, x - 11, y - 45, 23, 24);
-  rect(COLORS.red, x - 11, y - 42, 23, 6);
-  rect(COLORS.navy, x - 4, y - 41, 8, 8);
-  text("7", x, y - 40, COLORS.gold, "center", 6);
-  rect(COLORS.jerseyShadow, x - 9, y - 21, 8, 19); rect(COLORS.cream, x + 2, y - 21, 8, 19);
-  rect(COLORS.ink, x - 13, y - 4, 14, 4); rect(COLORS.ink, x + 3, y - 4, 13, 4);
-
-  if (frame <= 1) {
-    rect(COLORS.skin, x - 15, y - 44, 8, 5); rect(COLORS.skin, x - 17, y - 50, 6, 8);
-    ctx.strokeStyle = "#c69a54"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - 14, y - 48); ctx.lineTo(x + 7, y - 77); ctx.stroke();
-  } else if (frame === 2) {
-    rect(COLORS.skin, x - 18, y - 42, 12, 5); rect(COLORS.skin, x - 4, y - 42, 10, 5);
-    ctx.strokeStyle = "#d8aa5d"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x - 14, y - 40); ctx.lineTo(x - 49, y - 45); ctx.stroke();
-  } else if (frame === 3) {
-    rect(COLORS.skin, x - 7, y - 42, 12, 5); rect(COLORS.skin, x + 4, y - 45, 10, 5);
-    ctx.strokeStyle = "#d8aa5d"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x + 7, y - 42); ctx.lineTo(x + 43, y - 54); ctx.stroke();
-  } else {
-    rect(COLORS.skin, x + 4, y - 46, 8, 6); rect(COLORS.skin, x + 9, y - 52, 7, 8);
-    ctx.strokeStyle = "#d8aa5d"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x + 11, y - 49); ctx.lineTo(x + 30, y - 78); ctx.stroke();
-  }
+  drawPlayerBatter(ctx, batterFrameForElapsed(elapsed));
 }
 
 function drawBall(now) {
@@ -237,6 +186,7 @@ function startPitch() {
     document.querySelector("#start-card").classList.add("is-hidden");
   }
   if (state.phase === "resolved") state = readyNextPitch(state);
+  swingStartedAt = -Infinity;
   const previous = state;
   state = beginPitch(state, performance.now());
   if (state !== previous) audio.pitch();

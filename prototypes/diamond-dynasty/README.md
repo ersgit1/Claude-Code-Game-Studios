@@ -42,7 +42,8 @@ node --test tests/*.test.mjs
 - Balls, strikes, walks, strikeouts, outs, innings, hits, runners, and scoring
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
-- Frame-stepped original pitcher and batter pixel animation
+- Seven-state original pitcher and batter pixel animation plus a detailed
+  catcher set pose
 - Original synthesized arcade sound cues
 - Original fictional stadium art reduced to a 32-color, native 256×224 asset
 
@@ -50,7 +51,9 @@ node --test tests/*.test.mjs
 
 The core at-bat is readable and replayable on desktop and mobile, the original
 sprite states communicate windup and swing timing, and the deterministic model
-passes all eleven gameplay tests. The prototype meets a 9/10 **prototype-slice**
-presentation target; it is not yet a complete game comparable feature-for-feature
-with a finished SNES cartridge. See `REPORT.md` for the evidence and production
+passes all thirteen gameplay and animation tests. The rebuilt character set
+scores 9.1/10 on the explicit internal detail rubric in
+`CHARACTER_ART_COMPARISON.md`. That is not an external review score, and this
+prototype is not yet a complete game comparable feature-for-feature with a
+finished SNES cartridge. See `REPORT.md` for the evidence and production
 recommendation.
