@@ -300,7 +300,10 @@ export function batterFrameForElapsed(elapsed) {
   if (elapsed < 315) return 5;
   if (elapsed < 385) return 6;
   if (elapsed < 900) return 7;
-  return 8;
+  // Return to the raised READY pose after the held finish. The former frame 8
+  // leaves the barrel beside the batter's shoes, and the game can remain in
+  // that frame while it waits for the next pitch.
+  return 0;
 }
 
 export function batterFrameForSwing(startedAt, now) {

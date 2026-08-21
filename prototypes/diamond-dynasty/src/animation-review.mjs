@@ -1,7 +1,7 @@
 import {
   BATTER_SPRITE_PATHS,
   batterFrameForElapsed,
-} from "./player-art.mjs?v=sprite-art-v10";
+} from "./player-art.mjs?v=sprite-art-v11";
 
 const POSE_NAMES = Object.freeze([
   "READY",

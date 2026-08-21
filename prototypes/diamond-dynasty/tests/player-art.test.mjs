@@ -45,7 +45,7 @@ function captureRaster(draw) {
   return rectangles;
 }
 
-test("batter animation exposes contact, extension, and a held follow-through", () => {
+test("batter animation exposes contact, extension, a held follow-through, and a raised reset", () => {
   assert.equal(batterFrameForSwing(null, 1000), 0);
   assert.equal(batterFrameForSwing(1000, 1000), 1);
   assert.equal(batterFrameForElapsed(-1), 0);
@@ -54,7 +54,9 @@ test("batter animation exposes contact, extension, and a held follow-through", (
   assert.equal(batterFrameForElapsed(250), 4);
   assert.equal(batterFrameForElapsed(320), 6);
   assert.equal(batterFrameForElapsed(600), 7);
-  assert.equal(batterFrameForElapsed(1000), 8);
+  assert.equal(batterFrameForElapsed(899), 7);
+  assert.equal(batterFrameForElapsed(900), 0);
+  assert.equal(batterFrameForSwing(1000, 2450), 0);
 });
 
 test("pitcher animation exposes seven ordered delivery states", () => {
@@ -138,7 +140,7 @@ test("foreshortened batter renders in the left box with the pitch corridor in fr
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });
 
-test("batter review artifact contains a full nine-pose cycle and finish hold", () => {
+test("batter review artifact contains the full swing, finish hold, and raised ready return", () => {
   const gif = animationGif();
   assert.equal(gif.subarray(0, 6).toString(), "GIF89a");
   assert.equal(gif.readUInt16LE(6), 512);
@@ -150,7 +152,7 @@ test("batter review artifact contains a full nine-pose cycle and finish hold", (
       frameCount += 1;
     }
   }
-  // The final follow-through hold is repeated so the GIF concat pipeline
-  // preserves its display duration before looping back to ready.
+  // The raised READY return is repeated so the GIF concat pipeline preserves
+  // its display duration before beginning the next swing.
   assert.equal(frameCount, 10);
 });
