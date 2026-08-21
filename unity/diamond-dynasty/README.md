@@ -5,11 +5,18 @@ approved at-bat in Unity 2D; it does not import or execute browser prototype cod
 
 ## Controls
 
-- Enter: pitch
-- Arrow keys: aim
-- Space or A: swing
-- Gamepad D-pad: aim
-- Gamepad South/Start: pitch or swing according to game phase
+- Opening menu: Left/Right or D-pad chooses Batter/Pitcher; Enter, Space, or gamepad South confirms
+- Batter: Arrow keys/D-pad aim; Space, A, or gamepad South swings
+- Pitcher: Q/E or gamepad shoulders cycle pitch type; 1-3 directly selects a pitch
+- Pitcher: Arrow keys/D-pad move the requested plate target
+- Pitcher: Hold Enter, Space, or gamepad South to charge; release to deliver
+- Escape or gamepad East returns to role selection outside a live pitch; while charging, the first press safely cancels the charge
+
+More charge increases pitch velocity and location error. Pitcher mode displays
+the selected pitch, requested target, power, and accuracy risk. Batter mode never
+shows those details and receives only neutral in-flight information.
+
+The baseball uses four native-pixel circular frames rather than a scaled square.
 
 ## Verification
 

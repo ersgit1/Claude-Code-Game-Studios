@@ -35,6 +35,25 @@ namespace DiamondDynasty
         [Range(0f, 1f)] public float TemptingBallChance = 0.27f;
         public PitchDefinition[] Pitches = Array.Empty<PitchDefinition>();
 
+        [Header("Role flow")]
+        public float BatterAutoPitchDelaySeconds = 1.2f;
+
+        [Header("Pitcher control")]
+        public float PitchTargetPadding = 16f;
+        public float PitchTargetStep = 3f;
+        public float PitchChargeSeconds = 1f;
+        public float MinPitchSpeedMultiplier = 0.95f;
+        public float MaxPitchSpeedMultiplier = 1.06f;
+        public float MinPitchMissRadius = 1.5f;
+        public float MaxPitchMissRadius = 13f;
+        public float PitchAccuracyExponent = 2f;
+
+        [Header("CPU batter")]
+        [Range(0f, 1f)] public float CpuStrikeSwingChance = 0.76f;
+        [Range(0f, 1f)] public float CpuChaseChance = 0.18f;
+        public float CpuTimingJitter = 0.12f;
+        public float CpuAimErrorPixels = 18f;
+
         [Header("Contact")]
         public float TimingWindow = 0.23f;
         public float SpatialWindow = 25f;

@@ -38,6 +38,19 @@ MonoBehaviour:
     DurationSeconds: 0.93
     BreakX: 5
     BreakY: 5
+  BatterAutoPitchDelaySeconds: 1.2
+  PitchTargetPadding: 16
+  PitchTargetStep: 3
+  PitchChargeSeconds: 1
+  MinPitchSpeedMultiplier: 0.95
+  MaxPitchSpeedMultiplier: 1.06
+  MinPitchMissRadius: 1.5
+  MaxPitchMissRadius: 13
+  PitchAccuracyExponent: 2
+  CpuStrikeSwingChance: 0.76
+  CpuChaseChance: 0.18
+  CpuTimingJitter: 0.12
+  CpuAimErrorPixels: 18
   TimingWindow: 0.23
   SpatialWindow: 25
   FoulThreshold: 0.34
