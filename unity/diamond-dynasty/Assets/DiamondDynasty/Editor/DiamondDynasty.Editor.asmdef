@@ -1,0 +1,11 @@
+{
+  "name": "DiamondDynasty.Editor",
+  "rootNamespace": "DiamondDynasty.Editor",
+  "references": [
+    "DiamondDynasty.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

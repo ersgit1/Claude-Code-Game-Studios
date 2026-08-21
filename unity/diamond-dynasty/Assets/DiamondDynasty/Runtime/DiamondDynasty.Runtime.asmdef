@@ -1,0 +1,8 @@
+{
+  "name": "DiamondDynasty.Runtime",
+  "rootNamespace": "DiamondDynasty",
+  "references": [
+    "Unity.InputSystem"
+  ],
+  "autoReferenced": true
+}

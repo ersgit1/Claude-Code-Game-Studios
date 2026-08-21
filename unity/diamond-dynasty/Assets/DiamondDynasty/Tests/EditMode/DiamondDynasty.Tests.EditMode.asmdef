@@ -1,0 +1,14 @@
+{
+  "name": "DiamondDynasty.Tests.EditMode",
+  "rootNamespace": "DiamondDynasty.Tests",
+  "references": [
+    "DiamondDynasty.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": false
+}

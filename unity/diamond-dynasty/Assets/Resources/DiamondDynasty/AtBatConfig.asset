@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3b2434fa5e24318b28f16c64766abf, type: 3}
+  m_Name: AtBatConfig
+  m_EditorClassIdentifier: DiamondDynasty.Runtime::DiamondDynasty.AtBatConfig
+  NativeWidth: 256
+  NativeHeight: 224
+  StrikeLeft: 109
+  StrikeRight: 147
+  StrikeTop: 140
+  StrikeBottom: 178
+  AimPadding: 10
+  AimStep: 5
+  ContactProgress: 0.88
+  TemptingBallChance: 0.27
+  Pitches:
+  - Name: FOUR-SEAM
+    SpeedMph: 95
+    DurationSeconds: 0.76
+    BreakX: 1
+    BreakY: -1
+  - Name: CURVEBALL
+    SpeedMph: 79
+    DurationSeconds: 1.02
+    BreakX: -17
+    BreakY: 10
+  - Name: CHANGEUP
+    SpeedMph: 84
+    DurationSeconds: 0.93
+    BreakX: 5
+    BreakY: 5
+  TimingWindow: 0.23
+  SpatialWindow: 25
+  FoulThreshold: 0.34
+  WeakThreshold: 0.49
+  SingleThreshold: 0.68
+  DoubleThreshold: 0.84
+  TripleThreshold: 0.94
+  ResultHoldSeconds: 1.45
+  BatterFrameSeconds: 0.075

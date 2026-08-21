@@ -5,44 +5,47 @@
 
 ## Engine & Language
 
-- **Engine**: [TO BE CONFIGURED — run /setup-engine]
-- **Language**: [TO BE CONFIGURED]
-- **Rendering**: [TO BE CONFIGURED]
-- **Physics**: [TO BE CONFIGURED]
+- **Engine**: Unity 2D `6000.5.5f1` for the first vertical slice; re-evaluate against Unity 6.3 LTS before production expansion
+- **Language**: C#
+- **Rendering**: Orthographic 2D, `256x224` logical frame, point-filtered sprites, integer-aligned transforms
+- **Physics**: Deterministic gameplay math; no physics dependency for the at-bat slice
 
 ## Naming Conventions
 
-- **Classes**: [TO BE CONFIGURED]
-- **Variables**: [TO BE CONFIGURED]
-- **Signals/Events**: [TO BE CONFIGURED]
-- **Files**: [TO BE CONFIGURED]
-- **Scenes/Prefabs**: [TO BE CONFIGURED]
-- **Constants**: [TO BE CONFIGURED]
+- **Classes**: PascalCase
+- **Variables**: camelCase; serialized private fields use camelCase
+- **Signals/Events**: PascalCase
+- **Files**: Match the primary C# type name
+- **Scenes/Prefabs**: PascalCase
+- **Constants**: PascalCase
 
 ## Performance Budgets
 
-- **Target Framerate**: [TO BE CONFIGURED]
-- **Frame Budget**: [TO BE CONFIGURED]
-- **Draw Calls**: [TO BE CONFIGURED]
-- **Memory Ceiling**: [TO BE CONFIGURED]
+- **Target Framerate**: 60 FPS
+- **Frame Budget**: 16.67 ms
+- **Draw Calls**: Under 50 for the batting view
+- **Memory Ceiling**: 256 MB for the first vertical slice
 
 ## Testing
 
-- **Framework**: [TO BE CONFIGURED]
-- **Minimum Coverage**: [TO BE CONFIGURED]
-- **Required Tests**: Balance formulas, gameplay systems, networking (if applicable)
+- **Framework**: Unity Test Framework with NUnit EditMode tests
+- **Minimum Coverage**: Every rules transition and scoring edge case changed by a task
+- **Required Tests**: Pitch sampling, swing resolution, counts, walks, outs, runner advancement, and inning transitions
 
 ## Forbidden Patterns
 
 <!-- Add patterns that should never appear in this project's codebase -->
-- [None configured yet — add as architectural decisions are made]
+- Do not use texture filtering or non-integer sprite placement in the native gameplay camera.
+- Do not make gameplay outcomes depend on frame rate or MonoBehaviour lifecycle order.
 
 ## Allowed Libraries / Addons
 
 <!-- Add approved third-party dependencies here -->
-- [None configured yet — add as dependencies are approved]
+- Coplay Unity MCP `10.1.0`
+- Unity Input System `1.19.0`
+- Unity Test Framework `1.7.0`
 
 ## Architecture Decisions Log
 
 <!-- Quick reference linking to full ADRs in docs/architecture/ -->
-- [No ADRs yet — use /architecture-decision to create one]
+- `docs/architecture/ADR-001-UNITY-AT-BAT-VERTICAL-SLICE.md`
