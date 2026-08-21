@@ -329,7 +329,7 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
 // Keep him in the left batter's box so the pitcher, plate, pitch path, stride,
 // and barrel are all in front of him. Putting this art on the right side makes
 // the swing read backwards even though the poses remain in chronological order.
-export function drawBatter(ctx, frame, { x = 61, y = 214, sprite = null } = {}) {
+export function drawBatter(ctx, frame, { x = 80, y = 202, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
     pixel(ctx, P.shadow, x - 31, y + 2, 62, 4);
     pixel(ctx, P.outline, x - 25, y, 50, 2);

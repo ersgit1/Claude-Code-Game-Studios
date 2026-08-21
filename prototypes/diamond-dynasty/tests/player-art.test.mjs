@@ -117,13 +117,24 @@ test("foreshortened batter renders in the left box with the pitch corridor in fr
   drawBatter(context, 0, { sprite: batter });
   drawPitcher(context, 0, { sprite: pitcher });
   assert.deepEqual(images, [
-    [batter, 1, 106],
+    [batter, 20, 94],
     [pitcher, 90, 65],
   ]);
-  const batterRightEdge = images[0][1] + batter.naturalWidth;
+  const readyShoes = {
+    left: images[0][1] + 44,
+    right: images[0][1] + 76,
+    top: images[0][2] + 96,
+    bottom: images[0][2] + 107,
+  };
+  const leftBoxInterior = { left: 43, right: 104, top: 185, bottom: 207 };
+  assert.ok(readyShoes.left >= leftBoxInterior.left);
+  assert.ok(readyShoes.right <= leftBoxInterior.right);
+  assert.ok(readyShoes.top >= leftBoxInterior.top);
+  assert.ok(readyShoes.bottom <= leftBoxInterior.bottom);
+  const batterVisibleRightEdge = images[0][1] + 88;
   const pitcherCenter = images[1][1] + pitcher.naturalWidth / 2;
-  assert.ok(batterRightEdge < pitcherCenter);
-  assert.ok(images[0][1] + batter.naturalWidth <= 256);
+  assert.ok(batterVisibleRightEdge < pitcherCenter);
+  assert.ok(batterVisibleRightEdge <= 256);
   assert.ok(images.flatMap(([, ...coordinates]) => coordinates).every(Number.isInteger));
 });
 

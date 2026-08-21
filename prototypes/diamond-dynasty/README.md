@@ -48,9 +48,9 @@ node --test tests/*.test.mjs
   and home-run outcomes
 - Nine-state original, depth-foreshortened three-quarter batter animation in a
   tight home-plate camera. The near/far legs overlap in the ready stance so the
-  hitter reads as aimed upfield rather than broadside, while his stride and
-  barrel travel through the incoming pitch; includes a seven-state pitcher
-  delivery
+  hitter reads as aimed upfield rather than broadside, and both shoes sit inside
+  the four batter-box chalk lines while his stride and barrel travel through the
+  incoming pitch; includes a seven-state pitcher delivery
 - Dedicated batter animation review with synchronized field/close views and a
   reproducible looping GIF
 - Original synthesized arcade sound cues
