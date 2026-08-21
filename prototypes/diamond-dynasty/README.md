@@ -46,10 +46,11 @@ node --test tests/*.test.mjs
 - Balls, strikes, walks, strikeouts, outs, innings, hits, runners, and scoring
 - Timing-plus-location contact model with foul, out, single, double, triple,
   and home-run outcomes
-- Nine-state original side/back three-quarter batter animation in a tight
-  home-plate camera, with the right-facing hitter staged in the left batter's
-  box so his stride and barrel travel through the incoming pitch, plus a
-  seven-state pitcher delivery
+- Nine-state original, depth-foreshortened three-quarter batter animation in a
+  tight home-plate camera. The near/far legs overlap in the ready stance so the
+  hitter reads as aimed upfield rather than broadside, while his stride and
+  barrel travel through the incoming pitch; includes a seven-state pitcher
+  delivery
 - Dedicated batter animation review with synchronized field/close views and a
   reproducible looping GIF
 - Original synthesized arcade sound cues

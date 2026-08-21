@@ -325,10 +325,10 @@ function drawBatterLeg(ctx, hip, knee, ankle, isFront) {
   drawCleat(ctx, ankle, isFront ? 1 : -1);
 }
 
-// This is a right-handed, screen-right-facing hitter. Keep him in the left
-// batter's box so the pitcher, plate, pitch path, stride, and barrel are all in
-// front of him. Putting this art on the right side makes the entire swing read
-// backwards even though the individual poses remain in chronological order.
+// This is a right-handed hitter in a foreshortened home-plate-camera stance.
+// Keep him in the left batter's box so the pitcher, plate, pitch path, stride,
+// and barrel are all in front of him. Putting this art on the right side makes
+// the swing read backwards even though the poses remain in chronological order.
 export function drawBatter(ctx, frame, { x = 61, y = 214, sprite = null } = {}) {
   if (sprite?.complete && sprite.naturalWidth > 0) {
     pixel(ctx, P.shadow, x - 31, y + 2, 62, 4);

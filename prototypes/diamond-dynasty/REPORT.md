@@ -53,8 +53,8 @@ defence, team depth, broadcast transitions, and a complete game loop remain.
 - Desktop rendered canvas observed: `752×656`, no horizontal overflow
 - Live desktop gameplay and swing workflow: no console errors or warnings
 - Pitch repertoire: 3 pitches, 79–95 MPH, distinct duration and break
-- Batter animation: 9 side/back frame states with held high follow-through; pitcher
-  animation: 7 frame states
+- Batter animation: 9 depth-foreshortened three-quarter states with held high
+  follow-through; pitcher animation: 7 frame states
 - Character-detail evidence: reference comparison plus sixteen-pose sheet;
   no self-assigned or external rating
 - Outcome set: ball, called strike, swinging strike, foul, out, single, double,

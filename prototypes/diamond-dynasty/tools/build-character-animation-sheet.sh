@@ -9,7 +9,8 @@ trap 'rm -rf "$TEMP_DIR"' EXIT
 frame=0
 for sprite in "$ROOT_DIR"/art/sprites/batter-{0..8}.png "$ROOT_DIR"/art/sprites/pitcher-{0..6}.png; do
   ffmpeg -y -loglevel error -i "$sprite" \
-    -vf "scale=156:150:force_original_aspect_ratio=decrease:flags=neighbor,pad=176:170:(ow-iw)/2:(oh-ih)/2:color=0x20464c" \
+    -f lavfi -i "color=c=0x20464c:s=176x170" \
+    -filter_complex "[0:v]scale=156:150:force_original_aspect_ratio=decrease:flags=neighbor[sprite];[1:v][sprite]overlay=(W-w)/2:(H-h)/2:format=auto" \
     -frames:v 1 "$TEMP_DIR/frame-$frame.png"
   frame=$((frame + 1))
 done

@@ -105,7 +105,7 @@ test("sprite manifests expose nine batter and seven pitcher alpha PNG frames", (
   ]).size, 16);
 });
 
-test("right-facing batter renders in the left box with the pitch corridor in front of him", () => {
+test("foreshortened batter renders in the left box with the pitch corridor in front of him", () => {
   const images = [];
   const context = {
     fillStyle: "",

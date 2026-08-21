@@ -21,7 +21,7 @@ import {
   drawBatter as drawPlayerBatter,
   drawPitcher as drawPlayerPitcher,
   pitcherFrameForProgress,
-} from "./player-art.mjs?v=sprite-art-v8";
+} from "./player-art.mjs?v=sprite-art-v9";
 
 const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d", { alpha: false });
